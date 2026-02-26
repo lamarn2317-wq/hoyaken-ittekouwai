@@ -59,7 +59,8 @@ function findProp(properties, name) {
 function parseEvent(page) {
   const p = page.properties;
   const name = getTitle(findProp(p, "イベント名")) || getTitle(findProp(p, "Name")) || getTitle(findProp(p, "名前")) || "";
-  const area = getAnyText(findProp(p, "エリア")) || getAnyText(findProp(p, "Area")) || getAnyText(findProp(p, "地域")) || "";
+  const rawArea = getAnyText(findProp(p, "エリア")) || getAnyText(findProp(p, "Area")) || getAnyText(findProp(p, "地域")) || "";
+  const area = rawArea.replace(/^[\p{Emoji}\p{Emoji_Presentation}\u200d\ufe0f]+/gu, "").trim();
   const startDate = getDate(findProp(p, "開始日")) || getDate(findProp(p, "開催日")) || getDate(findProp(p, "Start Date")) || null;
   const endDate = getDateEnd(findProp(p, "開始日")) || getDate(findProp(p, "終了日")) || getDate(findProp(p, "End Date")) || null;
   const rawCategories = getMultiSelect(findProp(p, "ジャンル")) || getMultiSelect(findProp(p, "Genre")) || getMultiSelect(findProp(p, "カテゴリ")) || [];
