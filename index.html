@@ -1486,6 +1486,24 @@ button { font-family: inherit; cursor: pointer; }
   /* ==========================================================
      FETCH EVENTS FROM API
      ========================================================== */
+  // ── Demo data (remove after Vercel deploy) ──
+  var DEMO_EVENTS = [
+    { name: "SAIJO BASEの日", area: "西条市", categories: ["親子でお出かけ"], startDate: "2026-02-22", endDate: null, detailUrl: "https://instagram.com/saijobase", imageUrl: "" },
+    { name: "まるっと西条in丹原", area: "西条市", categories: ["マルシェ・フリマ"], startDate: "2026-02-22", endDate: null, detailUrl: "https://example.com", imageUrl: "" },
+    { name: "セカイっておもしろい！vol.9", area: "西条市", categories: ["親子でお出かけ"], startDate: "2026-02-11", endDate: "2026-02-27", detailUrl: "https://instagram.com/sekai", imageUrl: "" },
+    { name: "成龍酒造 酒蔵開放 2026春", area: "西条市", categories: ["祭り・季節行事"], startDate: "2026-04-25", endDate: "2026-04-26", detailUrl: "https://example.com", imageUrl: "" },
+    { name: "どんぐり春の親子キャンプ in石鎚", area: "西条市", categories: ["親子でお出かけ"], startDate: "2026-05-04", endDate: "2026-05-06", detailUrl: "https://forms.gle/test", imageUrl: "" },
+    { name: "KIX BEAUTY マルシェ", area: "西条市", categories: ["マルシェ・フリマ"], startDate: "2026-02-14", endDate: null, detailUrl: "https://instagram.com/kix", imageUrl: "" },
+    { name: "ガラスのお雛様展", area: "西条市", categories: ["祭り・季節行事"], startDate: "2026-01-10", endDate: "2026-02-14", detailUrl: "https://instagram.com/glass", imageUrl: "" },
+    { name: "26坪の平屋見学会開催", area: "西条市", categories: ["暮らし・住まい・美容"], startDate: "2026-02-07", endDate: "2026-02-08", detailUrl: "https://instagram.com/hiraya", imageUrl: "" },
+    { name: "新大豆フェアZEPPIN", area: "新居浜市", categories: ["グルメ・スイーツ"], startDate: "2026-02-20", endDate: null, detailUrl: "https://instagram.com/daizu", imageUrl: "" },
+    { name: "新大豆特選豆腐「絶品」フェア", area: "新居浜市", categories: ["グルメ・スイーツ"], startDate: "2026-02-01", endDate: "2026-03-13", detailUrl: "https://example.com", imageUrl: "" },
+    { name: "にいはまパンマルシェ", area: "新居浜市", categories: ["マルシェ・フリマ"], startDate: "2026-03-29", endDate: null, detailUrl: "https://instagram.com/pan", imageUrl: "" },
+    { name: "しまなみ海道サイクリングフェス", area: "今治市", categories: ["体験・ワークショップ"], startDate: "2026-03-15", endDate: "2026-03-16", detailUrl: "https://example.com", imageUrl: "" },
+    { name: "四国中央紙まつり", area: "四国中央市", categories: ["祭り・季節行事"], startDate: "2026-04-12", endDate: null, detailUrl: "https://example.com", imageUrl: "" },
+    { name: "大島カフェNEW OPEN", area: "越智郡", categories: ["NEW Open・告知"], startDate: "2026-03-01", endDate: null, detailUrl: "https://instagram.com/cafe", imageUrl: "" }
+  ];
+
   window.loadEvents = function () {
     showSkeleton();
 
@@ -1499,15 +1517,16 @@ button { font-family: inherit; cursor: pointer; }
         allEvents = data.events || [];
         updateHeroStats(allEvents);
         renderEvents(allEvents);
-        // Re-apply filter if any was active
         if (activeFilter || searchInput.value.trim()) {
           applyFilter();
         }
       })
       .catch(function (err) {
-        console.error("[ほやけん] Failed to load events:", err);
+        console.warn("[ほやけん] API unavailable, using demo data");
         hideSkeleton();
-        showError();
+        allEvents = DEMO_EVENTS;
+        updateHeroStats(allEvents);
+        renderEvents(allEvents);
       });
   };
 
