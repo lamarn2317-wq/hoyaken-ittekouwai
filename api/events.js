@@ -115,7 +115,14 @@ module.exports = async function handler(req, res) {
       hasMore = response.has_more;
       startCursor = response.next_cursor;
     }
-    const events = allResults.map(parseEvent).filter((e) => e.name);
+    // 重複除去（同じイベント名は最初の1件だけ残す）
+    const allEvents = allResults.map(parseEvent).filter((e) => e.name);
+    const seen = new Set();
+    const events = allEvents.filter((e) => {
+      if (seen.has(e.name)) return false;
+      seen.add(e.name);
+      return true;
+    });
     res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
     return res.status(200).json({ events, totalCount: events.length, cachedAt: new Date().toISOString() });
   } catch (error) {
