@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ほやけんいってこーわい | 東予のイベント情報</title>
+<meta name="description" content="愛媛県東予地域（新居浜・西条・今治）のイベント情報ポータル">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #fafafa;
+  color: #1a1a1a;
+  line-height: 1.7;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid #F37021; outline-offset: 2px; border-radius: 4px; }
+
+/* ============================================================
+   HERO — Banner + Unified Orange Strip
+   ============================================================ */
+.hero {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  background: #fafafa;
+}
+
+/* Banner image */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+  animation: hero-fade-in 0.6s ease-out both;
+}
+.hero-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* ---- Unified warm orange strip (stats + sponsor CTA) ---- */
+.hero-strip {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  background: linear-gradient(135deg, #F37021 0%, #ff8c3a 40%, #ffa04d 100%);
+  display: flex;
+  flex-direction: column;
+  animation: hero-fade-in 0.6s ease-out 0.1s both;
+}
+
+/* Top row: stats */
+.hero-strip-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px 14px;
+  gap: 0;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 28px;
+  position: relative;
+}
+.hero-stat-num {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 4px rgba(160,50,0,0.15);
+}
+.hero-stat-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.08em;
+}
+.hero-stat + .hero-stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* Bottom row: sponsor CTA */
+.hero-strip-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px 24px 16px;
+  background: rgba(0,0,0,0.12);
+  flex-wrap: wrap;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+.hero-strip-cta:hover {
+  background: rgba(0,0,0,0.18);
+}
+.strip-badge {
+  background: #fff;
+  color: #F37021;
+  font-size: 0.68rem;
+  font-weight: 900;
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  animation: strip-badge-pulse 2.5s ease-in-out infinite;
+}
+@keyframes strip-badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+}
+.strip-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 3px rgba(160,50,0,0.2);
+}
+.strip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 7px 20px;
+  background: #fff;
+  color: #F37021;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.strip-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+@keyframes hero-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .hero-strip-stats { padding: 14px 12px 12px; }
+  .hero-stat { padding: 0 16px; }
+  .hero-stat-num { font-size: 1.2rem; }
+  .hero-strip-cta { padding: 12px 16px 14px; gap: 10px; }
+  .strip-text { font-size: 0.82rem; }
+  .strip-btn { padding: 6px 16px; font-size: 0.72rem; }
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+}
+
+/* Old sponsor-banner hidden (now in hero-strip) */
+.sponsor-banner { display: none !important; }
+
+/* ============================================================
+   SPONSOR SLIDER — FUTURISTIC ORANGE GLASS
+   ============================================================ */
+
+/* --- Animated background blobs --- */
+@keyframes blob-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(80px, -40px) scale(1.15); }
+  66%      { transform: translate(-40px, 30px) scale(0.9); }
+}
+@keyframes blob-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(-60px, 50px) scale(1.1); }
+  66%      { transform: translate(50px, -20px) scale(0.85); }
+}
+@keyframes blob-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(0.95); }
+  50%      { transform: translate(30px, -60px) scale(1.2); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.8; }
+}
+@keyframes grid-scroll {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+.slider-section {
+  position: relative;
+  padding: 52px 0 48px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Subtle warm radial accents on white */
+.slider-section::before {
+  content: "";
+  position: absolute;
+  inset: -80px;
+  background:
+    radial-gradient(ellipse 550px 400px at 20% 30%, rgba(243,112,33,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 350px at 80% 70%, rgba(255,167,38,0.04) 0%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+.slider-section::after {
+  content: "";
+  position: absolute;
+  inset: -60px;
+  background:
+    radial-gradient(ellipse 350px 280px at 65% 40%, rgba(255,140,0,0.04) 0%, transparent 65%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Subtle dot pattern */
+.slider-section .slider-bg-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.35;
+  background-image: radial-gradient(circle, rgba(243,112,33,0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+/* Section title — elegant on white */
+.slider-title {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+/* Decorative line above */
+.slider-title::before {
+  content: "";
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #F37021, transparent);
+  border-radius: 2px;
+}
+.slider-title h2 {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #1a1a1a;
+}
+.slider-title p {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #bbb;
+}
+/* Decorative line below */
+.slider-title::after {
+  content: "";
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #F37021, transparent);
+  border-radius: 2px;
+}
+
+/* Edge fade-out */
+.slider-fade-left,
+.slider-fade-right {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 4;
+  pointer-events: none;
+}
+.slider-fade-left  { left: 0;  background: linear-gradient(to right, #fff, transparent); }
+.slider-fade-right { right: 0; background: linear-gradient(to left, #fff, transparent); }
+
+/* Track */
+@keyframes scroll-infinite {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+.sponsor-track {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  width: max-content;
+  gap: 20px;
+  animation: scroll-infinite 30s linear infinite;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.slider-section:hover .sponsor-track,
+.slider-section.is-paused .sponsor-track {
+  animation-play-state: paused;
+}
+
+/* --- Elevated white cards on white bg --- */
+.sponsor-card {
+  flex: 0 0 210px;
+  height: 170px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  cursor: pointer;
+  background: #fff;
+  border: 1.5px solid #f0f0f0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+/* Top accent bar per rank */
+.sponsor-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  transition: left 0.3s ease, right 0.3s ease;
+}
+.sponsor-card.gold::before   { background: linear-gradient(90deg, #FFD700, #FFC107); }
+.sponsor-card.silver::before { background: linear-gradient(90deg, #C0C0C0, #A8A8A8); }
+.sponsor-card.bronze::before { background: linear-gradient(90deg, #DBA058, #CD7F32); }
+.sponsor-card.orange::before { background: linear-gradient(90deg, #F37021, #ff8c3a); }
+
+.sponsor-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.1);
+}
+.sponsor-card:hover::before {
+  left: 10%;
+  right: 10%;
+}
+
+/* --- Rank border glow on hover --- */
+.sponsor-card.gold:hover   { border-color: rgba(255,215,0,0.4); }
+.sponsor-card.silver:hover { border-color: rgba(192,192,192,0.5); }
+.sponsor-card.bronze:hover { border-color: rgba(205,127,50,0.4); }
+.sponsor-card.orange:hover { border-color: rgba(243,112,33,0.4); }
+
+/* --- Text --- */
+.sponsor-card .rank-label {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #bbb;
+  transition: color 0.3s ease;
+}
+.sponsor-card:hover .rank-label { color: #999; }
+
+.sponsor-card .main-label {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  transition: filter 0.3s ease;
+}
+.sponsor-card:hover .main-label { filter: brightness(1.1); }
+
+.sponsor-card.gold .main-label   { background: linear-gradient(135deg, #D4A000, #B8860B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sponsor-card.silver .main-label { background: linear-gradient(135deg, #999, #777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sponsor-card.bronze .main-label { background: linear-gradient(135deg, #CD7F32, #8B5E20); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sponsor-card.orange .main-label { background: linear-gradient(135deg, #F37021, #E05500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+.sponsor-card .limit-label {
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: #ccc;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+.sponsor-card:hover .limit-label { color: #aaa; }
+
+/* --- Mobile --- */
+@media (max-width: 768px) {
+  .slider-section {
+    padding: 36px 0;
+    background: #fff;
+  }
+  .slider-fade-left, .slider-fade-right { width: 30px; }
+  .slider-fade-left  { background: linear-gradient(to right, #fff, transparent); }
+  .slider-fade-right { background: linear-gradient(to left, #fff, transparent); }
+  .sponsor-card {
+    flex: 0 0 65vw;
+    max-width: 240px;
+    height: 150px;
+    border-radius: 18px;
+  }
+  .slider-title { margin-bottom: 24px; }
+  .slider-title h2 { font-size: 1.2rem; }
+  .slider-title p { font-size: 0.55rem; letter-spacing: 0.2em; }
+}
+
+/* ============================================================
+   SEARCH & FILTER
+   ============================================================ */
+.search-filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250,250,250,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 20px 0 16px;
+  margin-bottom: 8px;
+}
+.search-input {
+  width: 100%;
+  padding: 11px 20px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  background: #fff;
+  color: #111;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  margin-bottom: 12px;
+}
+.search-input:focus {
+  border-color: #F37021;
+  box-shadow: 0 0 0 3px rgba(243,112,33,0.12);
+}
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.filter-btn {
+  padding: 5px 16px;
+  border-radius: 999px;
+  border: 1.5px solid #e5e7eb;
+  background: #fff;
+  color: #374151;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  min-height: 34px;
+}
+.filter-btn:hover { border-color: #F37021; color: #F37021; }
+.filter-btn.active {
+  background: #F37021;
+  color: #fff;
+  border-color: #F37021;
+  font-weight: 700;
+}
+
+/* ============================================================
+   SECTION HEADINGS
+   ============================================================ */
+.region-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 40px 0 20px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border-bottom: none;
+}
+.region-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.region-heading h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+.region-heading .event-count {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-left: auto;
+  color: #9ca3af;
+}
+
+/* --- Region-specific heading backgrounds --- */
+.region-heading.bg-toyo      { background: rgba(34,211,238,0.18); }
+.region-heading.bg-imabari    { background: rgba(56,163,220,0.18); }
+.region-heading.bg-saijo      { background: rgba(245,140,50,0.16); }
+.region-heading.bg-niihama    { background: rgba(124,58,237,0.15); }
+.region-heading.bg-shikoku-c  { background: rgba(234,179,8,0.18); }
+.region-heading.bg-ochi       { background: rgba(21,128,61,0.15); }
+
+@media (max-width: 768px) {
+  .region-heading { margin: 28px 0 14px; padding: 10px 14px; border-radius: 10px; }
+  .region-heading h2 { font-size: 1.15rem; }
+}
+
+/* ============================================================
+   EVENT CARD GRID — POSTER STYLE
+   PC: grid (3 columns)  /  Mobile: horizontal scroll
+   ============================================================ */
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+.event-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+.event-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+}
+
+/* --- Poster cover (tall portrait ratio ~3:4) --- */
+.card-cover {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #fde4cf, #ffd6a0);
+}
+.card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+.event-card:hover .card-cover img { transform: scale(1.05); }
+
+/* placeholder gradient per category */
+.card-cover.cat-gourmet    { background: linear-gradient(160deg, #fde4cf 0%, #f8c471 60%, #e67e22 100%); }
+.card-cover.cat-marche     { background: linear-gradient(160deg, #d5f5e3 0%, #82e0aa 60%, #27ae60 100%); }
+.card-cover.cat-family     { background: linear-gradient(160deg, #d6eaf8 0%, #85c1e9 60%, #2e86c1 100%); }
+.card-cover.cat-festival   { background: linear-gradient(160deg, #fadbd8 0%, #f1948a 60%, #e74c3c 100%); }
+.card-cover.cat-life       { background: linear-gradient(160deg, #e8daef 0%, #bb8fce 60%, #8e44ad 100%); }
+.card-cover.cat-workshop   { background: linear-gradient(160deg, #fef9e7 0%, #f9e154 60%, #f39c12 100%); }
+.card-cover.cat-newopen    { background: linear-gradient(160deg, #eaf2f8 0%, #7fb3d8 60%, #2980b9 100%); }
+
+.card-cover-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  opacity: 0.25;
+}
+
+.card-body {
+  padding: 14px 16px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.tag-region {
+  border: 1px solid;
+}
+.tag-region.niihama   { color: #7c3aed; background: #f5f3ff; border-color: #ede9fe; }
+.tag-region.saijo     { color: #ea580c; background: #fff7ed; border-color: #ffedd5; }
+.tag-region.imabari   { color: #0369a1; background: #e0f2fe; border-color: #bae6fd; }
+.tag-region.shikoku-c { color: #ca8a04; background: #fefce8; border-color: #fde047; }
+.tag-region.toyo      { color: #0891b2; background: #ecfeff; border-color: #a5f3fc; }
+.tag-region.ochi      { color: #15803d; background: #f0fdf4; border-color: #bbf7d0; }
+
+.tag-category {
+  color: #6b7280;
+  background: #f3f4f6;
+}
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #111;
+}
+.card-date {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-weight: 500;
+  margin-top: auto;
+}
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: #F37021;
+  font-weight: 600;
+  margin-top: 4px;
+  transition: opacity 0.15s;
+}
+.card-link:hover { opacity: 0.7; }
+
+/* --- Mobile: horizontal scroll (swipe) --- */
+@media (max-width: 768px) {
+  .event-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 14px;
+    padding-bottom: 8px;
+    /* hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .event-grid::-webkit-scrollbar { display: none; }
+
+  .event-card {
+    flex: 0 0 72vw;
+    max-width: 280px;
+    scroll-snap-align: center;
+  }
+  .event-card:first-child { margin-left: 0; }
+  .event-card:hover { transform: none; }
+
+  .card-cover {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* Scroll hint indicator for mobile */
+.scroll-hint {
+  display: none;
+  text-align: center;
+  font-size: 0.68rem;
+  color: #9ca3af;
+  margin-top: 6px;
+  letter-spacing: 0.05em;
+}
+@media (max-width: 768px) {
+  .scroll-hint { display: block; }
+}
+
+/* ============================================================
+   SKELETON LOADING
+   ============================================================ */
+@keyframes skeleton-pulse {
+  0%   { opacity: 0.6; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+.skeleton-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+.skeleton-cover {
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+}
+.skeleton-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  background: #e5e7eb;
+}
+.skeleton-line.w60 { width: 60%; }
+.skeleton-line.w80 { width: 80%; }
+.skeleton-line.w40 { width: 40%; }
+
+/* ============================================================
+   ERROR STATE
+   ============================================================ */
+.error-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #9ca3af;
+}
+.error-state-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+.error-state h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 8px;
+}
+.error-state p {
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+.error-state button {
+  padding: 10px 28px;
+  border-radius: 999px;
+  border: none;
+  background: #F37021;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: opacity 0.15s;
+}
+.error-state button:hover { opacity: 0.85; }
+
+/* ============================================================
+   SCROLL-TO-TOP FAB + MUSIC PLAYER (unified)
+   ============================================================ */
+
+/* --- FAB container (right-bottom) --- */
+.fab-wrap {
+  position: fixed;
+  bottom: 28px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+/* --- Mini music player (expands from FAB) --- */
+.fab-player {
+  pointer-events: auto;
+  background: #fff;
+  border-radius: 20px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow:
+    0 4px 20px rgba(243,112,33,0.15),
+    0 1px 4px rgba(0,0,0,0.06);
+  border: 1px solid rgba(243,112,33,0.12);
+  opacity: 0;
+  transform: translateY(16px) scale(0.9);
+  transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1),
+              transform 0.4s cubic-bezier(0.4,0,0.2,1),
+              box-shadow 0.4s ease;
+  will-change: transform, opacity;
+}
+.fab-player.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.fab-player.glow {
+  box-shadow:
+    0 4px 20px rgba(243,112,33,0.15),
+    0 1px 4px rgba(0,0,0,0.06),
+    0 0 20px rgba(243,112,33,0.25),
+    0 0 40px rgba(243,112,33,0.1);
+  border-color: rgba(243,112,33,0.35);
+}
+
+.fab-player-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #F37021, #ff9a4a);
+  color: #fff;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(243,112,33,0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.fab-player-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 3px 12px rgba(243,112,33,0.4);
+}
+
+.fab-player-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.fab-player-name {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #3d2000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fab-player-progress {
+  width: 80px;
+  height: 3px;
+  background: rgba(243,112,33,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.fab-player-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #F37021, #ff9a4a);
+  border-radius: 3px;
+  transition: width 0.15s linear;
+}
+.fab-player-time {
+  font-size: 0.5rem;
+  color: #b08050;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.fab-player-close {
+  background: none;
+  border: none;
+  color: #c8a080;
+  font-size: 0.65rem;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+}
+.fab-player-close:hover { color: #F37021; }
+
+/* --- The FAB button itself --- */
+.fab-top-btn {
+  pointer-events: auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #F37021, #ff9a4a);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 16px rgba(243,112,33,0.35),
+    0 1px 4px rgba(0,0,0,0.08);
+  opacity: 0;
+  transform: translateY(16px) scale(0.8);
+  transition: opacity 0.3s ease,
+              transform 0.3s cubic-bezier(0.4,0,0.2,1),
+              box-shadow 0.3s ease;
+}
+.fab-top-btn.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.fab-top-btn:hover {
+  box-shadow:
+    0 6px 24px rgba(243,112,33,0.45),
+    0 2px 8px rgba(0,0,0,0.08);
+  transform: translateY(-2px) scale(1.05);
+}
+.fab-top-btn:active {
+  transform: translateY(0) scale(0.96);
+}
+
+/* Orange glow pulse on FAB when player appears */
+@keyframes fab-glow-pulse {
+  0%   { box-shadow: 0 4px 16px rgba(243,112,33,0.35), 0 0 0 0 rgba(243,112,33,0.4); }
+  50%  { box-shadow: 0 4px 16px rgba(243,112,33,0.35), 0 0 0 12px rgba(243,112,33,0); }
+  100% { box-shadow: 0 4px 16px rgba(243,112,33,0.35), 0 0 0 0 rgba(243,112,33,0); }
+}
+.fab-top-btn.pulse {
+  animation: fab-glow-pulse 0.8s ease-out;
+}
+
+/* Hide old elements */
+.music-player { display: none !important; }
+.scroll-top-btn { display: none !important; }
+
+/* ============================================================
+   NO RESULTS
+   ============================================================ */
+.no-results {
+  text-align: center;
+  color: #9ca3af;
+  padding: 48px 16px;
+  font-size: 0.9rem;
+  grid-column: 1 / -1;
+  display: none;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  text-align: center;
+  padding: 48px 16px 80px;
+  color: #9ca3af;
+  font-size: 0.75rem;
+}
+
+/* ============================================================
+   LAZY IMAGE FADE-IN
+   ============================================================ */
+.card-cover img {
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.35s ease;
+}
+.card-cover img.loaded {
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+   HERO
+   ============================================================ -->
+<header class="hero">
+  <div class="hero-banner">
+    <img src="23.png" alt="ほやけんいってこーわい — 東予のイベント情報">
+  </div>
+  <!-- Unified warm orange strip: stats + sponsor CTA -->
+  <div class="hero-strip">
+    <div class="hero-strip-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="statEvents">--</span>
+        <span class="hero-stat-label">イベント</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="statAreas">--</span>
+        <span class="hero-stat-label">エリア</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="statCategories">7</span>
+        <span class="hero-stat-label">カテゴリ</span>
+      </div>
+    </div>
+    <a href="sponsor-form.html" class="hero-strip-cta">
+      <span class="strip-badge">限定5社</span>
+      <span class="strip-text">年間スポンサー募集中</span>
+      <span class="strip-btn">詳細を見る →</span>
+    </a>
+  </div>
+</header>
+
+<!-- ============================================================
+   SPONSOR SLIDER
+   ============================================================ -->
+<section class="slider-section" id="sponsorSlider">
+  <div class="slider-bg-grid"></div>
+  <div class="slider-fade-left"></div>
+  <div class="slider-fade-right"></div>
+
+  <!-- Section title -->
+  <div class="slider-title">
+    <h2>年間パートナー</h2>
+    <p>Annual Partnership &mdash; Limited Slots</p>
+  </div>
+
+  <div class="sponsor-track">
+    <div class="sponsor-card gold"><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card silver"><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card bronze"><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card orange"><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card orange"><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <!-- duplicate for infinite loop -->
+    <div class="sponsor-card gold"><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card silver"><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card bronze"><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card orange"><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card orange"><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+   MAIN CONTENT
+   ============================================================ -->
+<main class="container" id="mainContent">
+
+  <!-- Search & Filter (7 categories) -->
+  <div class="search-filter-bar">
+    <input type="search" class="search-input" id="searchInput" placeholder="&#128269; イベントを検索...">
+    <div class="filter-row" id="filterRow">
+      <button class="filter-btn active" data-filter="">すべて</button>
+      <button class="filter-btn" data-filter="グルメ・スイーツ">&#127869; グルメ・スイーツ</button>
+      <button class="filter-btn" data-filter="マルシェ・フリマ">&#127807; マルシェ・フリマ</button>
+      <button class="filter-btn" data-filter="親子でお出かけ">&#128104;&#8205;&#128105;&#8205;&#128103; 親子でお出かけ</button>
+      <button class="filter-btn" data-filter="祭り・季節行事">&#127878; 祭り・季節行事</button>
+      <button class="filter-btn" data-filter="体験・ワークショップ">&#9997;&#65039; 体験・ワークショップ</button>
+      <button class="filter-btn" data-filter="暮らし・住まい・美容">&#127968; 暮らし・住まい・美容</button>
+      <button class="filter-btn" data-filter="NEW Open・告知">&#127381; NEW Open・告知</button>
+    </div>
+  </div>
+
+  <!-- Dynamic event sections will be rendered here -->
+  <div id="eventSections"></div>
+
+  <!-- Loading skeleton -->
+  <div id="loadingSkeleton" style="display:none;">
+    <div class="region-heading bg-toyo" style="margin-top:24px;">
+      <span class="region-dot" style="background:#22d3ee"></span>
+      <h2>読み込み中...</h2>
+    </div>
+    <div class="event-grid">
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w80"></div><div class="skeleton-line w40"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w80"></div><div class="skeleton-line w40"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-cover"></div><div class="skeleton-body"><div class="skeleton-line w60"></div><div class="skeleton-line w80"></div><div class="skeleton-line w40"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Error state -->
+  <div id="errorState" style="display:none;">
+    <div class="error-state">
+      <div class="error-state-icon">&#128546;</div>
+      <h3>イベント情報を取得できませんでした</h3>
+      <p>ネットワークを確認して、もう一度お試しください</p>
+      <button onclick="loadEvents()">再読み込み</button>
+    </div>
+  </div>
+
+  <p class="no-results" id="noResults">条件に一致するイベントはありません</p>
+
+</main>
+
+<!-- ============================================================
+   FOOTER
+   ============================================================ -->
+<footer class="site-footer">
+  &copy; 2026 ほやけんいってこーわい. All rights reserved.
+</footer>
+
+<!-- ============================================================
+   FAB: SCROLL-TO-TOP + MUSIC PLAYER
+   ============================================================ -->
+<div class="fab-wrap" id="fabWrap">
+  <div class="fab-player" id="fabPlayer">
+    <button class="fab-player-btn" id="fabPlayBtn" aria-label="タオッキーの歌を再生">&#9654;</button>
+    <div class="fab-player-info">
+      <span class="fab-player-name">タオッキーの歌</span>
+      <div class="fab-player-progress">
+        <div class="fab-player-bar" id="fabPlayerBar"></div>
+      </div>
+    </div>
+    <span class="fab-player-time" id="fabPlayerTime">0:00</span>
+    <button class="fab-player-close" id="fabPlayerClose" aria-label="閉じる">&#10005;</button>
+  </div>
+  <button class="fab-top-btn" id="fabTopBtn" aria-label="ページトップへ">&uarr;</button>
+</div>
+
+<!-- ============================================================
+   JAVASCRIPT — DYNAMIC EVENT LOADING
+   ============================================================ -->
+<script>
+(function () {
+  "use strict";
+
+  /* ==========================================================
+     CONFIG
+     ========================================================== */
+  var CONFIG = {
+    // API endpoint (Vercel Serverless Function)
+    API_URL: "/api/events",
+
+    // 7 categories with emoji icons and CSS class names
+    CATEGORIES: {
+      "グルメ・スイーツ":       { icon: "\uD83C\uDF7D\uFE0F", css: "cat-gourmet",  label: "\uD83C\uDF7D\uFE0F グルメ・スイーツ" },
+      "マルシェ・フリマ":       { icon: "\uD83C\uDF3F",        css: "cat-marche",   label: "\uD83C\uDF3F マルシェ・フリマ" },
+      "親子でお出かけ":         { icon: "\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC67", css: "cat-family", label: "\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC67 親子でお出かけ" },
+      "祭り・季節行事":         { icon: "\uD83C\uDF86",        css: "cat-festival", label: "\uD83C\uDF86 祭り・季節行事" },
+      "体験・ワークショップ":   { icon: "\u270D\uFE0F",        css: "cat-workshop", label: "\u270D\uFE0F 体験・ワークショップ" },
+      "暮らし・住まい・美容":   { icon: "\uD83C\uDFE0",        css: "cat-life",     label: "\uD83C\uDFE0 暮らし・住まい・美容" },
+      "NEW Open・告知":         { icon: "\uD83C\uDD95",        css: "cat-newopen",  label: "\uD83C\uDD95 NEW Open・告知" }
+    },
+
+    // Regions with display settings
+    REGIONS: [
+      { key: "今治市",     css: "bg-imabari",   dot: "#0369a1", tagCss: "imabari" },
+      { key: "西条市",     css: "bg-saijo",     dot: "#ea580c", tagCss: "saijo" },
+      { key: "新居浜市",   css: "bg-niihama",   dot: "#7c3aed", tagCss: "niihama" },
+      { key: "四国中央市", css: "bg-shikoku-c", dot: "#eab308", tagCss: "shikoku-c" },
+      { key: "越智郡",     css: "bg-ochi",      dot: "#15803d", tagCss: "ochi" }
+    ],
+
+    // Default region for "toyo" heading (catch-all)
+    TOYO: { css: "bg-toyo", dot: "#22d3ee", tagCss: "toyo", label: "東予地方" }
+  };
+
+  /* ==========================================================
+     STATE
+     ========================================================== */
+  var allEvents = [];
+  var activeFilter = "";
+
+  /* ==========================================================
+     UTILITY: Date Formatter
+     ========================================================== */
+  function formatDate(startDate, endDate) {
+    if (!startDate) return "";
+    var s = parseDate(startDate);
+    if (!s) return "";
+    var startStr = s.getFullYear() + "\u5E74" + (s.getMonth() + 1) + "\u6708" + s.getDate() + "\u65E5";
+
+    if (!endDate) return startStr;
+    var e = parseDate(endDate);
+    if (!e || e.getTime() === s.getTime()) return startStr;
+
+    // Same year & month
+    if (s.getFullYear() === e.getFullYear() && s.getMonth() === e.getMonth()) {
+      return startStr + " - " + e.getDate() + "\u65E5";
+    }
+    // Same year
+    if (s.getFullYear() === e.getFullYear()) {
+      return startStr + " - " + (e.getMonth() + 1) + "\u6708" + e.getDate() + "\u65E5";
+    }
+    // Different year
+    return startStr + " - " + e.getFullYear() + "\u5E74" + (e.getMonth() + 1) + "\u6708" + e.getDate() + "\u65E5";
+  }
+
+  function parseDate(str) {
+    if (!str) return null;
+    var d = new Date(str);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  /* ==========================================================
+     UTILITY: Link Text from URL
+     ========================================================== */
+  function getLinkText(url) {
+    if (!url) return "";
+    var lower = url.toLowerCase();
+    if (lower.indexOf("instagram.com") !== -1) return "Instagram \u2192";
+    if (lower.indexOf("twitter.com") !== -1 || lower.indexOf("x.com") !== -1) return "X (Twitter) \u2192";
+    if (lower.indexOf("facebook.com") !== -1) return "Facebook \u2192";
+    if (lower.indexOf("line.me") !== -1) return "LINE \u2192";
+    if (lower.indexOf("tally.so") !== -1 || lower.indexOf("forms.gle") !== -1 || lower.indexOf("docs.google.com/forms") !== -1) return "\u7533\u8FBC\u30D5\u30A9\u30FC\u30E0 \u2192";
+    if (lower.indexOf("peatix.com") !== -1) return "Peatix \u2192";
+    return "\u516C\u5F0F\u30B5\u30A4\u30C8 \u2192";
+  }
+
+  /* ==========================================================
+     UTILITY: Get category config
+     ========================================================== */
+  function getCategoryConfig(categories) {
+    if (!categories || !categories.length) return null;
+    // Try each category name
+    for (var i = 0; i < categories.length; i++) {
+      var cat = categories[i];
+      if (CONFIG.CATEGORIES[cat]) return CONFIG.CATEGORIES[cat];
+      // Partial match
+      var keys = Object.keys(CONFIG.CATEGORIES);
+      for (var j = 0; j < keys.length; j++) {
+        if (cat.indexOf(keys[j]) !== -1 || keys[j].indexOf(cat) !== -1) {
+          return CONFIG.CATEGORIES[keys[j]];
+        }
+      }
+    }
+    return null;
+  }
+
+  /* ==========================================================
+     UTILITY: Get region config
+     ========================================================== */
+  function getRegionConfig(area) {
+    if (!area) return null;
+    for (var i = 0; i < CONFIG.REGIONS.length; i++) {
+      if (area.indexOf(CONFIG.REGIONS[i].key) !== -1) return CONFIG.REGIONS[i];
+    }
+    return null;
+  }
+
+  /* ==========================================================
+     RENDER: Single Event Card
+     ========================================================== */
+  function renderEventCard(event) {
+    var catConfig = getCategoryConfig(event.categories);
+    var regionConfig = getRegionConfig(event.area);
+    var coverCss = catConfig ? catConfig.css : "";
+    var coverIcon = catConfig ? catConfig.icon : "\uD83D\uDCC5";
+    var catLabel = catConfig ? catConfig.label : (event.categories && event.categories.length ? event.categories[0] : "");
+    var regionTagCss = regionConfig ? regionConfig.tagCss : CONFIG.TOYO.tagCss;
+    var regionLabel = event.area || CONFIG.TOYO.label;
+    var dateStr = formatDate(event.startDate, event.endDate);
+    var linkText = getLinkText(event.detailUrl);
+
+    // Build data-category for filtering
+    var dataCats = (event.categories || []).join(",");
+
+    var html = "";
+    html += '<a href="' + (event.detailUrl || "#") + '" class="event-card" data-category="' + escapeAttr(dataCats) + '"';
+    if (event.detailUrl) html += ' target="_blank" rel="noopener noreferrer"';
+    html += ">";
+
+    // Cover
+    html += '<div class="card-cover ' + coverCss + '">';
+    if (event.imageUrl) {
+      html += '<img data-src="' + escapeAttr(event.imageUrl) + '" alt="' + escapeAttr(event.name) + '" loading="lazy">';
+    }
+    html += '<span class="card-cover-icon">' + coverIcon + '</span>';
+    html += '</div>';
+
+    // Body
+    html += '<div class="card-body">';
+    html += '<div class="card-tags">';
+    html += '<span class="tag tag-region ' + regionTagCss + '">' + escapeHtml(regionLabel) + '</span>';
+    if (catLabel) html += '<span class="tag tag-category">' + escapeHtml(catLabel) + '</span>';
+    html += '</div>';
+    html += '<div class="card-title">' + escapeHtml(event.name) + '</div>';
+    if (dateStr) html += '<div class="card-date">' + escapeHtml(dateStr) + '</div>';
+    if (event.detailUrl && linkText) html += '<span class="card-link">' + linkText + '</span>';
+    html += '</div>';
+
+    html += '</a>';
+    return html;
+  }
+
+  /* ==========================================================
+     RENDER: All Events (grouped by region)
+     ========================================================== */
+  function renderEvents(events) {
+    var container = document.getElementById("eventSections");
+    if (!events.length) {
+      container.innerHTML = '<div class="error-state"><div class="error-state-icon">\uD83D\uDCC5</div><h3>\u30A4\u30D9\u30F3\u30C8\u304C\u307E\u3060\u3042\u308A\u307E\u305B\u3093</h3><p>Tally\u30D5\u30A9\u30FC\u30E0\u304B\u3089\u30A4\u30D9\u30F3\u30C8\u3092\u767B\u9332\u3057\u3066\u304F\u3060\u3055\u3044</p></div>';
+      return;
+    }
+
+    // Group events by region
+    var regionGroups = {};
+    var regionOrder = CONFIG.REGIONS.map(function (r) { return r.key; });
+
+    events.forEach(function (ev) {
+      var area = ev.area || "";
+      var regionKey = null;
+      for (var i = 0; i < regionOrder.length; i++) {
+        if (area.indexOf(regionOrder[i]) !== -1) {
+          regionKey = regionOrder[i];
+          break;
+        }
+      }
+      if (!regionKey) regionKey = "__other__";
+      if (!regionGroups[regionKey]) regionGroups[regionKey] = [];
+      regionGroups[regionKey].push(ev);
+    });
+
+    var html = "";
+
+    // First: render "All Toyo" section (all events combined)
+    html += '<div class="region-heading ' + CONFIG.TOYO.css + '">';
+    html += '<span class="region-dot" style="background:' + CONFIG.TOYO.dot + '"></span>';
+    html += '<h2>' + CONFIG.TOYO.label + '</h2>';
+    html += '<span class="event-count">' + events.length + ' \u30A4\u30D9\u30F3\u30C8</span>';
+    html += '</div>';
+    html += '<div class="event-grid" data-region="toyo">';
+    events.forEach(function (ev) {
+      html += renderEventCard(ev);
+    });
+    html += '</div>';
+    html += '<div class="scroll-hint">\u2190 \u30B9\u30EF\u30A4\u30D7\u3067\u4ED6\u306E\u30A4\u30D9\u30F3\u30C8\u3092\u898B\u308B \u2192</div>';
+
+    // Then: render each region section
+    CONFIG.REGIONS.forEach(function (region) {
+      var regionEvents = regionGroups[region.key];
+      html += '<div class="region-heading ' + region.css + '">';
+      html += '<span class="region-dot" style="background:' + region.dot + '"></span>';
+      html += '<h2>' + region.key + '</h2>';
+      if (regionEvents && regionEvents.length) {
+        html += '<span class="event-count">' + regionEvents.length + ' \u30A4\u30D9\u30F3\u30C8</span>';
+      } else {
+        html += '<span class="event-count">Coming soon</span>';
+      }
+      html += '</div>';
+
+      html += '<div class="event-grid" data-region="' + region.tagCss + '">';
+      if (regionEvents && regionEvents.length) {
+        regionEvents.forEach(function (ev) {
+          html += renderEventCard(ev);
+        });
+      } else {
+        html += '<div class="no-results" style="display:block;opacity:0.5;">\u30A4\u30D9\u30F3\u30C8\u60C5\u5831\u3092\u6E96\u5099\u4E2D\u3067\u3059</div>';
+      }
+      html += '</div>';
+      if (regionEvents && regionEvents.length) {
+        html += '<div class="scroll-hint">\u2190 \u30B9\u30EF\u30A4\u30D7\u3067\u4ED6\u306E\u30A4\u30D9\u30F3\u30C8\u3092\u898B\u308B \u2192</div>';
+      }
+    });
+
+    // Render "other" region (if events don't match any region)
+    if (regionGroups["__other__"] && regionGroups["__other__"].length) {
+      html += '<div class="region-heading bg-toyo">';
+      html += '<span class="region-dot" style="background:#94a3b8"></span>';
+      html += '<h2>\u305D\u306E\u4ED6</h2>';
+      html += '<span class="event-count">' + regionGroups["__other__"].length + ' \u30A4\u30D9\u30F3\u30C8</span>';
+      html += '</div>';
+      html += '<div class="event-grid" data-region="other">';
+      regionGroups["__other__"].forEach(function (ev) {
+        html += renderEventCard(ev);
+      });
+      html += '</div>';
+      html += '<div class="scroll-hint">\u2190 \u30B9\u30EF\u30A4\u30D7\u3067\u4ED6\u306E\u30A4\u30D9\u30F3\u30C8\u3092\u898B\u308B \u2192</div>';
+    }
+
+    container.innerHTML = html;
+
+    // Lazy load images
+    initLazyImages();
+  }
+
+  /* ==========================================================
+     HERO STATS UPDATE
+     ========================================================== */
+  function updateHeroStats(events) {
+    var statEvents = document.getElementById("statEvents");
+    var statAreas = document.getElementById("statAreas");
+    if (statEvents) statEvents.textContent = events.length + "+";
+
+    // Count unique areas
+    var areas = {};
+    events.forEach(function (ev) { if (ev.area) areas[ev.area] = true; });
+    var areaCount = Object.keys(areas).length;
+    if (statAreas) statAreas.textContent = areaCount || "--";
+  }
+
+  /* ==========================================================
+     LOADING / ERROR STATES
+     ========================================================== */
+  function showSkeleton() {
+    document.getElementById("loadingSkeleton").style.display = "block";
+    document.getElementById("errorState").style.display = "none";
+    document.getElementById("eventSections").innerHTML = "";
+  }
+
+  function hideSkeleton() {
+    document.getElementById("loadingSkeleton").style.display = "none";
+  }
+
+  function showError() {
+    document.getElementById("errorState").style.display = "block";
+    document.getElementById("loadingSkeleton").style.display = "none";
+    document.getElementById("eventSections").innerHTML = "";
+  }
+
+  /* ==========================================================
+     LAZY IMAGE LOADING (Intersection Observer)
+     ========================================================== */
+  function initLazyImages() {
+    var images = document.querySelectorAll(".card-cover img[data-src]");
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var img = entry.target;
+            img.src = img.getAttribute("data-src");
+            img.removeAttribute("data-src");
+            img.onload = function () { img.classList.add("loaded"); };
+            img.onerror = function () {
+              // On error: hide img, let gradient background show
+              img.style.display = "none";
+            };
+            observer.unobserve(img);
+          }
+        });
+      }, { rootMargin: "200px 0px" });
+
+      images.forEach(function (img) { observer.observe(img); });
+    } else {
+      // Fallback: load all immediately
+      images.forEach(function (img) {
+        img.src = img.getAttribute("data-src");
+        img.removeAttribute("data-src");
+        img.onload = function () { img.classList.add("loaded"); };
+      });
+    }
+  }
+
+  /* ==========================================================
+     SEARCH & FILTER
+     ========================================================== */
+  var searchInput = document.getElementById("searchInput");
+  var filterBtns = document.querySelectorAll(".filter-btn");
+  var noResults = document.getElementById("noResults");
+
+  function applyFilter() {
+    var q = searchInput.value.trim().toLowerCase();
+    var cards = document.querySelectorAll(".event-card");
+    var count = 0;
+
+    cards.forEach(function (card) {
+      var text = card.textContent.toLowerCase();
+      var dataCats = card.getAttribute("data-category") || "";
+      var matchCat = activeFilter === "" || dataCats.indexOf(activeFilter) !== -1;
+      var matchQ = q === "" || text.indexOf(q) !== -1;
+      var show = matchCat && matchQ;
+      card.style.display = show ? "" : "none";
+      if (show) count++;
+    });
+
+    // Show/hide region sections
+    document.querySelectorAll(".event-grid").forEach(function (grid) {
+      var heading = grid.previousElementSibling;
+      if (!heading || !heading.classList.contains("region-heading")) return;
+      var scrollHint = grid.nextElementSibling;
+      var visibleCards = grid.querySelectorAll(".event-card:not([style*='display: none'])");
+      var hasPlaceholder = grid.querySelector(".no-results[style*='display:block']");
+
+      if (visibleCards.length === 0 && !hasPlaceholder) {
+        heading.style.display = "none";
+        grid.style.display = "none";
+        if (scrollHint && scrollHint.classList.contains("scroll-hint")) scrollHint.style.display = "none";
+      } else {
+        heading.style.display = "";
+        grid.style.display = "";
+        if (scrollHint && scrollHint.classList.contains("scroll-hint")) scrollHint.style.display = "";
+      }
+    });
+
+    noResults.style.display = (count === 0 && (q !== "" || activeFilter !== "")) ? "block" : "none";
+  }
+
+  searchInput.addEventListener("input", applyFilter);
+
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      filterBtns.forEach(function (b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      activeFilter = btn.getAttribute("data-filter");
+      applyFilter();
+    });
+  });
+
+  /* ==========================================================
+     FETCH EVENTS FROM API
+     ========================================================== */
+  // ── Demo data (remove after Vercel deploy) ──
+  var DEMO_EVENTS = [
+    { name: "SAIJO BASEの日", area: "西条市", categories: ["親子でお出かけ"], startDate: "2026-02-22", endDate: null, detailUrl: "https://instagram.com/saijobase", imageUrl: "" },
+    { name: "まるっと西条in丹原", area: "西条市", categories: ["マルシェ・フリマ"], startDate: "2026-02-22", endDate: null, detailUrl: "https://example.com", imageUrl: "" },
+    { name: "セカイっておもしろい！vol.9", area: "西条市", categories: ["親子でお出かけ"], startDate: "2026-02-11", endDate: "2026-02-27", detailUrl: "https://instagram.com/sekai", imageUrl: "" },
+    { name: "成龍酒造 酒蔵開放 2026春", area: "西条市", categories: ["祭り・季節行事"], startDate: "2026-04-25", endDate: "2026-04-26", detailUrl: "https://example.com", imageUrl: "" },
+    { name: "どんぐり春の親子キャンプ in石鎚", area: "西条市", categories: ["親子でお出かけ"], startDate: "2026-05-04", endDate: "2026-05-06", detailUrl: "https://forms.gle/test", imageUrl: "" },
+    { name: "KIX BEAUTY マルシェ", area: "西条市", categories: ["マルシェ・フリマ"], startDate: "2026-02-14", endDate: null, detailUrl: "https://instagram.com/kix", imageUrl: "" },
+    { name: "ガラスのお雛様展", area: "西条市", categories: ["祭り・季節行事"], startDate: "2026-01-10", endDate: "2026-02-14", detailUrl: "https://instagram.com/glass", imageUrl: "" },
+    { name: "26坪の平屋見学会開催", area: "西条市", categories: ["暮らし・住まい・美容"], startDate: "2026-02-07", endDate: "2026-02-08", detailUrl: "https://instagram.com/hiraya", imageUrl: "" },
+    { name: "新大豆フェアZEPPIN", area: "新居浜市", categories: ["グルメ・スイーツ"], startDate: "2026-02-20", endDate: null, detailUrl: "https://instagram.com/daizu", imageUrl: "" },
+    { name: "新大豆特選豆腐「絶品」フェア", area: "新居浜市", categories: ["グルメ・スイーツ"], startDate: "2026-02-01", endDate: "2026-03-13", detailUrl: "https://example.com", imageUrl: "" },
+    { name: "にいはまパンマルシェ", area: "新居浜市", categories: ["マルシェ・フリマ"], startDate: "2026-03-29", endDate: null, detailUrl: "https://instagram.com/pan", imageUrl: "" },
+    { name: "しまなみ海道サイクリングフェス", area: "今治市", categories: ["体験・ワークショップ"], startDate: "2026-03-15", endDate: "2026-03-16", detailUrl: "https://example.com", imageUrl: "" },
+    { name: "四国中央紙まつり", area: "四国中央市", categories: ["祭り・季節行事"], startDate: "2026-04-12", endDate: null, detailUrl: "https://example.com", imageUrl: "" },
+    { name: "大島カフェNEW OPEN", area: "越智郡", categories: ["NEW Open・告知"], startDate: "2026-03-01", endDate: null, detailUrl: "https://instagram.com/cafe", imageUrl: "" }
+  ];
+
+  window.loadEvents = function () {
+    showSkeleton();
+
+    fetch(CONFIG.API_URL)
+      .then(function (res) {
+        if (!res.ok) throw new Error("API error: " + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        hideSkeleton();
+        allEvents = data.events || [];
+        updateHeroStats(allEvents);
+        renderEvents(allEvents);
+        if (activeFilter || searchInput.value.trim()) {
+          applyFilter();
+        }
+      })
+      .catch(function (err) {
+        console.warn("[ほやけん] API unavailable, using demo data");
+        hideSkeleton();
+        allEvents = DEMO_EVENTS;
+        updateHeroStats(allEvents);
+        renderEvents(allEvents);
+      });
+  };
+
+  // Load on page init
+  loadEvents();
+
+  /* ==========================================================
+     SPONSOR SLIDER - touch / hover pause
+     ========================================================== */
+  var slider = document.getElementById("sponsorSlider");
+  if (slider) {
+    var pause = function () { slider.classList.add("is-paused"); };
+    var resumeSlider = function () { slider.classList.remove("is-paused"); };
+    slider.addEventListener("mouseenter", pause);
+    slider.addEventListener("mouseleave", resumeSlider);
+    slider.addEventListener("touchstart", pause, { passive: true });
+    slider.addEventListener("touchend", resumeSlider, { passive: true });
+  }
+
+  /* ==========================================================
+     FAB: SCROLL-TO-TOP + MUSIC PLAYER (unified)
+     ========================================================== */
+  var AUDIO_URL = ""; // Supabase URL etc.
+  var fabTopBtn = document.getElementById("fabTopBtn");
+  var fabPlayer = document.getElementById("fabPlayer");
+  var fabPlayBtn = document.getElementById("fabPlayBtn");
+  var fabPlayerBar = document.getElementById("fabPlayerBar");
+  var fabPlayerTime = document.getElementById("fabPlayerTime");
+  var fabCloseBtn = document.getElementById("fabPlayerClose");
+
+  var audio = null;
+  var isPlaying = false;
+  var playerDismissed = false;
+  var lastScrollY = 0;
+  var scrollingUp = false;
+
+  // Show/hide FAB on scroll
+  window.addEventListener("scroll", function () {
+    var current = window.scrollY;
+    scrollingUp = current < lastScrollY;
+    lastScrollY = current;
+
+    if (current > 300) {
+      fabTopBtn.classList.add("visible");
+      if (scrollingUp && !playerDismissed) {
+        if (!fabPlayer.classList.contains("visible")) {
+          fabPlayer.classList.add("visible");
+          fabPlayer.classList.add("glow");
+          fabTopBtn.classList.add("pulse");
+          setTimeout(function () {
+            fabPlayer.classList.remove("glow");
+            fabTopBtn.classList.remove("pulse");
+          }, 1200);
+        }
+      }
+    } else {
+      fabTopBtn.classList.remove("visible");
+      fabPlayer.classList.remove("visible");
+    }
+  }, { passive: true });
+
+  // Scroll to top
+  fabTopBtn.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (!playerDismissed) {
+      fabPlayer.classList.add("visible");
+      fabPlayer.classList.add("glow");
+      fabTopBtn.classList.add("pulse");
+      setTimeout(function () {
+        fabPlayer.classList.remove("glow");
+        fabTopBtn.classList.remove("pulse");
+      }, 1200);
+    }
+  });
+
+  // Init audio
+  function initAudio() {
+    if (audio) return;
+    if (!AUDIO_URL) { console.warn("\u97F3\u697DURL\u304C\u8A2D\u5B9A\u3055\u308C\u3066\u3044\u307E\u305B\u3093"); return; }
+    audio = new Audio(AUDIO_URL);
+    audio.loop = true;
+    audio.volume = 0.4;
+    audio.preload = "auto";
+    audio.addEventListener("timeupdate", function () {
+      if (audio.duration) {
+        fabPlayerBar.style.width = (audio.currentTime / audio.duration * 100) + "%";
+        var m = Math.floor(audio.currentTime / 60);
+        var s = Math.floor(audio.currentTime % 60);
+        fabPlayerTime.textContent = m + ":" + (s < 10 ? "0" : "") + s;
+      }
+    });
+  }
+
+  // Play / Pause
+  fabPlayBtn.addEventListener("click", function () {
+    initAudio();
+    if (!audio) return;
+    if (isPlaying) {
+      audio.pause();
+      fabPlayBtn.innerHTML = "&#9654;";
+    } else {
+      audio.play().then(function () {
+        fabPlayBtn.innerHTML = "&#9208;";
+      }).catch(function () { console.warn("\u518D\u751F\u306B\u306F\u30E6\u30FC\u30B6\u30FC\u64CD\u4F5C\u304C\u5FC5\u8981\u3067\u3059"); });
+    }
+    isPlaying = !isPlaying;
+  });
+
+  // Close player
+  fabCloseBtn.addEventListener("click", function () {
+    if (audio) { audio.pause(); isPlaying = false; fabPlayBtn.innerHTML = "&#9654;"; }
+    fabPlayer.classList.remove("visible", "glow");
+    playerDismissed = true;
+  });
+
+  // Pause on tab hidden
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden && isPlaying && audio) {
+      audio.pause();
+      fabPlayBtn.innerHTML = "&#9654;";
+      isPlaying = false;
+    }
+  });
+
+  /* ==========================================================
+     UTILITY: HTML escape
+     ========================================================== */
+  function escapeHtml(str) {
+    if (!str) return "";
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function escapeAttr(str) {
+    if (!str) return "";
+    return str.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/'/g, "&#39;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+})();
+</script>
+
+</body>
+</html>
