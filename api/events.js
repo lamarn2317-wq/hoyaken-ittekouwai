@@ -47,15 +47,25 @@ function getAnyText(prop) {
   return "";
 }
 
+// Notionプロパティ名の前後スペースを無視して検索
+function findProp(properties, name) {
+  if (properties[name]) return properties[name];
+  for (const [key, val] of Object.entries(properties)) {
+    if (key.trim() === name) return val;
+  }
+  return null;
+}
+
 function parseEvent(page) {
   const p = page.properties;
-  const name = getTitle(p["イベント名"]) || getTitle(p["Name"]) || getTitle(p["名前"]) || getTitle(p["title"]) || "";
-  const area = getAnyText(p["エリア"]) || getAnyText(p["Area"]) || getAnyText(p["地域"]) || "";
-  const startDate = getDate(p["開始日"]) || getDate(p["開催日（開始）"]) || getDate(p["開催日"]) || getDate(p["Start Date"]) || getDate(p["日付"]) || null;
-  const endDate = getDateEnd(p["開始日"]) || getDate(p["終了日"]) || getDate(p["開催日（終了）"]) || getDate(p["End Date"]) || null;
-  const categories = getMultiSelect(p["ジャンル"]) || getMultiSelect(p["Genre"]) || getMultiSelect(p["カテゴリ"]) || [];
-  const imageUrl = getFiles(p["画像"]) || getFiles(p["イベント画像"]) || getFiles(p["Image"]) || "";
-  const detailUrl = getUrl(p["詳細URL"]) || getUrl(p["URL"]) || getUrl(p["リンク"]) || getRichText(p["詳細URL"]) || "";
+  const name = getTitle(findProp(p, "イベント名")) || getTitle(findProp(p, "Name")) || getTitle(findProp(p, "名前")) || "";
+  const area = getAnyText(findProp(p, "エリア")) || getAnyText(findProp(p, "Area")) || getAnyText(findProp(p, "地域")) || "";
+  const startDate = getDate(findProp(p, "開始日")) || getDate(findProp(p, "開催日")) || getDate(findProp(p, "Start Date")) || null;
+  const endDate = getDateEnd(findProp(p, "開始日")) || getDate(findProp(p, "終了日")) || getDate(findProp(p, "End Date")) || null;
+  const rawCategories = getMultiSelect(findProp(p, "ジャンル")) || getMultiSelect(findProp(p, "Genre")) || getMultiSelect(findProp(p, "カテゴリ")) || [];
+  const categories = rawCategories.map((c) => c.replace(/^[\p{Emoji}\p{Emoji_Presentation}\u200d\ufe0f]+/gu, "").trim());
+  const imageUrl = getFiles(findProp(p, "画像")) || getFiles(findProp(p, "イベント画像")) || getFiles(findProp(p, "Image")) || "";
+  const detailUrl = getUrl(findProp(p, "詳細URL")) || getUrl(findProp(p, "URL")) || getUrl(findProp(p, "リンク")) || getRichText(findProp(p, "詳細URL")) || "";
   let coverUrl = imageUrl;
   if (!coverUrl && page.cover) {
     if (page.cover.type === "file") coverUrl = page.cover.file.url;
@@ -74,6 +84,7 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: "Missing environment variables" });
   }
 
+  // Debug mode: show raw property types
   if (req.query.debug === "1") {
     try {
       const response = await notion.databases.query({ database_id: DATABASE_ID, page_size: 1 });
