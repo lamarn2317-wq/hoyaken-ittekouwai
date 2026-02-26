@@ -1,0 +1,9 @@
+{
+  "name": "hoyaken-ittekouwai",
+  "version": "2.0.0",
+  "private": true,
+  "description": "ほやけんいってこーわい — 東予のイベント情報ポータル",
+  "dependencies": {
+    "@notionhq/client": "^2.2.15"
+  }
+}

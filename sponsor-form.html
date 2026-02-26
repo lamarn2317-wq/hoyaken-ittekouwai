@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>年間パートナー応募 | ほやけんいってこ〜わい</title>
+<meta name="description" content="ほやけんいってこ〜わい 年間パートナー（スポンサー）募集フォーム">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f7f7f7;
+  color: #1a1a1a;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ---- Progress bar (top of page) ---- */
+.form-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(0,0,0,0.06);
+  z-index: 100;
+}
+.form-progress-bar {
+  height: 100%;
+  width: 33.3%;
+  background: linear-gradient(90deg, #F37021, #ff8c3a);
+  border-radius: 0 2px 2px 0;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Hero header ---- */
+.form-hero {
+  background: linear-gradient(135deg, #F37021 0%, #ff8c3a 40%, #ffa04d 100%);
+  padding: 48px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.form-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 600px 300px at 30% 80%, rgba(255,255,255,0.1), transparent);
+  pointer-events: none;
+}
+.form-hero-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+.form-hero-back:hover {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+.form-hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 4px 16px;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+.form-hero h1 {
+  color: #fff;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 8px rgba(160,50,0,0.15);
+  margin-bottom: 8px;
+}
+.form-hero p {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.85rem;
+  font-weight: 500;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ---- Plan cards ---- */
+.plan-section {
+  max-width: 780px;
+  margin: -28px auto 0;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+.plan-section-title {
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #999;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  padding-top: 36px;
+}
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.plan-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px 12px 16px;
+  text-align: center;
+  border: 2px solid #f0f0f0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.plan-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 25%; right: 25%;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  transition: left 0.3s ease, right 0.3s ease;
+}
+.plan-card.gold::before   { background: linear-gradient(90deg, #FFD700, #FFC107); }
+.plan-card.silver::before { background: linear-gradient(90deg, #C0C0C0, #A8A8A8); }
+.plan-card.bronze::before { background: linear-gradient(90deg, #DBA058, #CD7F32); }
+.plan-card.orange::before { background: linear-gradient(90deg, #F37021, #ff8c3a); }
+
+.plan-card:hover {
+  border-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+.plan-card:hover::before { left: 15%; right: 15%; }
+.plan-card.selected {
+  border-color: #F37021;
+  box-shadow: 0 4px 20px rgba(243,112,33,0.15);
+  transform: translateY(-2px);
+}
+.plan-card.selected::before { left: 0; right: 0; }
+.plan-card.selected::after {
+  content: "✓";
+  position: absolute;
+  top: 8px; right: 10px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #F37021;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: check-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes check-pop {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+.plan-rank {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 6px;
+}
+.plan-name {
+  font-size: 1rem;
+  font-weight: 900;
+  margin-bottom: 2px;
+}
+.plan-card.gold .plan-name   { color: #B8860B; }
+.plan-card.silver .plan-name { color: #888; }
+.plan-card.bronze .plan-name { color: #CD7F32; }
+.plan-card.orange .plan-name { color: #F37021; }
+.plan-slots {
+  font-size: 0.6rem;
+  color: #aaa;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.plan-benefit {
+  font-size: 0.6rem;
+  color: #999;
+  line-height: 1.5;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 8px;
+  margin-top: 4px;
+}
+.plan-benefit strong {
+  color: #F37021;
+  font-weight: 800;
+}
+
+/* ---- Form container ---- */
+.form-container {
+  max-width: 640px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+.form-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 32px 40px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  border: 1px solid #f0f0f0;
+}
+.form-card h2 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+.form-card .form-subtitle {
+  font-size: 0.75rem;
+  color: #999;
+  margin-bottom: 28px;
+}
+
+/* ---- Steps indicator ---- */
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 32px;
+}
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: default;
+}
+.step-num {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: #f0f0f0;
+  color: #bbb;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.step.active .step-num {
+  background: #F37021;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(243,112,33,0.3);
+  animation: step-activate 0.4s ease;
+}
+@keyframes step-activate {
+  0%   { transform: scale(0.8); }
+  50%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.step.done .step-num {
+  background: #22c55e;
+  color: #fff;
+}
+.step-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+.step.active .step-label { color: #F37021; font-weight: 700; }
+.step.done .step-label   { color: #22c55e; }
+.step-line {
+  width: 48px;
+  height: 2px;
+  background: #eee;
+  margin: 0 14px;
+  border-radius: 2px;
+  transition: background 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.step-line.done {
+  background: #22c55e;
+}
+.step-line.done::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  animation: line-shine 0.6s ease-out;
+}
+@keyframes line-shine {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+/* ---- Form page transitions ---- */
+.form-page {
+  display: none;
+  opacity: 0;
+  transform: translateX(20px);
+}
+.form-page.active {
+  display: block;
+  animation: page-slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.form-page.exit-left {
+  display: block;
+  animation: page-slide-out-left 0.25s ease-in forwards;
+}
+.form-page.exit-right {
+  display: block;
+  animation: page-slide-out-right 0.25s ease-in forwards;
+}
+@keyframes page-slide-in {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes page-slide-out-left {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(-20px); }
+}
+@keyframes page-slide-out-right {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(20px); }
+}
+
+/* ---- Form groups ---- */
+.form-group {
+  margin-bottom: 22px;
+}
+.form-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 6px;
+}
+.form-label .required {
+  color: #F37021;
+  font-size: 0.6rem;
+  font-weight: 800;
+  margin-left: 4px;
+  vertical-align: super;
+}
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: #1a1a1a;
+  background: #fafafa;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #F37021;
+  box-shadow: 0 0 0 3px rgba(243,112,33,0.08);
+  background: #fff;
+}
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #c0c0c0;
+}
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23999' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.form-hint {
+  font-size: 0.65rem;
+  color: #bbb;
+  margin-top: 4px;
+}
+
+/* ---- Input valid check ---- */
+.form-input.valid,
+.form-select.valid {
+  border-color: #22c55e;
+}
+
+/* ---- Radio group (budget) ---- */
+.radio-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.radio-item {
+  position: relative;
+}
+.radio-item input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.radio-item label {
+  display: block;
+  padding: 10px 14px;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666;
+  background: #fafafa;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.radio-item input:checked + label {
+  border-color: #F37021;
+  background: rgba(243,112,33,0.04);
+  color: #F37021;
+  box-shadow: 0 0 0 3px rgba(243,112,33,0.08);
+}
+.radio-item label:hover {
+  border-color: #ddd;
+  background: #f5f5f5;
+}
+
+/* ---- Checkbox (agree) ---- */
+.checkbox-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #fafafa;
+  border: 1.5px solid #e5e5e5;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+.checkbox-wrap:hover { border-color: #ddd; }
+.checkbox-wrap input[type="checkbox"] {
+  width: 18px; height: 18px;
+  margin-top: 2px;
+  accent-color: #F37021;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.checkbox-wrap span {
+  font-size: 0.78rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ---- Buttons ---- */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 28px;
+}
+.btn {
+  flex: 1;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #F37021, #ff8c3a);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(243,112,33,0.25);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(243,112,33,0.3);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(243,112,33,0.2);
+}
+.btn-secondary {
+  background: #f0f0f0;
+  color: #666;
+}
+.btn-secondary:hover {
+  background: #e8e8e8;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+/* Loading spinner in button */
+.btn-loading {
+  color: transparent !important;
+}
+.btn-loading::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 20px; height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+}
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Error state ---- */
+.form-input.error,
+.form-select.error,
+.form-textarea.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+  animation: shake 0.4s ease;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-4px); }
+  40%      { transform: translateX(4px); }
+  60%      { transform: translateX(-3px); }
+  80%      { transform: translateX(2px); }
+}
+.form-error {
+  font-size: 0.65rem;
+  color: #ef4444;
+  margin-top: 4px;
+  display: none;
+}
+.form-error.show { display: block; }
+
+/* ---- Toast notification ---- */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 200;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+.toast-icon {
+  font-size: 1rem;
+}
+
+/* ---- Confirm summary ---- */
+.confirm-summary {
+  background: #fafafa;
+  border-radius: 14px;
+  padding: 4px 0;
+  margin-bottom: 20px;
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
+}
+.confirm-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 20px;
+  font-size: 0.82rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.confirm-row:last-child { border-bottom: none; }
+.confirm-label {
+  color: #999;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-right: 16px;
+  font-size: 0.75rem;
+}
+.confirm-value {
+  color: #1a1a1a;
+  font-weight: 500;
+  text-align: right;
+  word-break: break-all;
+}
+
+/* ---- Success ---- */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+.form-success.show {
+  display: block;
+  animation: page-slide-in 0.5s ease forwards;
+}
+.success-icon {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 4px 20px rgba(34,197,94,0.25);
+  animation: success-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes success-pop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.success-confetti {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  animation: confetti-drop 0.6s ease 0.3s both;
+}
+@keyframes confetti-drop {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.form-success h3 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+.form-success p {
+  font-size: 0.85rem;
+  color: #888;
+  line-height: 1.7;
+}
+.btn-back-home {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #F37021, #ff8c3a);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(243,112,33,0.2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-back-home:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(243,112,33,0.3);
+}
+
+/* ---- Footer ---- */
+.form-footer {
+  text-align: center;
+  padding: 32px 16px 48px;
+  color: #ccc;
+  font-size: 0.7rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .form-hero { padding: 36px 20px 32px; }
+  .form-hero h1 { font-size: 1.3rem; }
+  .form-hero-back { top: 12px; left: 12px; font-size: 0.7rem; padding: 5px 12px; }
+  .plan-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .plan-section { margin-top: -20px; }
+  .plan-benefit { font-size: 0.55rem; }
+  .form-card { padding: 28px 20px 32px; border-radius: 16px; }
+  .form-actions { flex-direction: column; }
+  .step-label { display: none; }
+  .step-line { width: 24px; margin: 0 6px; }
+  .radio-group { grid-template-columns: 1fr; }
+  .confirm-row { padding: 10px 16px; font-size: 0.78rem; }
+}
+@media (max-width: 480px) {
+  .plan-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .plan-card { padding: 14px 8px 12px; }
+  .plan-name { font-size: 0.85rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="form-progress">
+  <div class="form-progress-bar" id="progressBar"></div>
+</div>
+
+<!-- ============================================================
+   HERO
+   ============================================================ -->
+<div class="form-hero">
+  <a href="index.html" class="form-hero-back">← 戻る</a>
+  <span class="form-hero-badge">限定5社 — 事業者様向け</span>
+  <h1>年間パートナー応募</h1>
+  <p>ほやけんいってこ〜わいと一緒に<br>東予を盛り上げませんか？</p>
+</div>
+
+<!-- ============================================================
+   PLAN SELECT
+   ============================================================ -->
+<div class="plan-section">
+  <div class="plan-section-title">▼ プランを選択</div>
+  <div class="plan-grid" id="planGrid">
+    <div class="plan-card gold" data-plan="Gold Sponsor">
+      <div class="plan-rank">GOLD</div>
+      <div class="plan-name">ゴールド</div>
+      <div class="plan-slots">限定 1 社</div>
+      <div class="plan-benefit"><strong>最上位</strong>掲載<br>全ページロゴ表示</div>
+    </div>
+    <div class="plan-card silver" data-plan="Silver Sponsor">
+      <div class="plan-rank">SILVER</div>
+      <div class="plan-name">シルバー</div>
+      <div class="plan-slots">限定 1 社</div>
+      <div class="plan-benefit"><strong>上位</strong>掲載<br>イベントページ掲載</div>
+    </div>
+    <div class="plan-card bronze" data-plan="Bronze Sponsor">
+      <div class="plan-rank">BRONZE</div>
+      <div class="plan-name">ブロンズ</div>
+      <div class="plan-slots">限定 1 社</div>
+      <div class="plan-benefit">ロゴ掲載<br>SNS紹介付き</div>
+    </div>
+    <div class="plan-card orange" data-plan="Orange Sponsor">
+      <div class="plan-rank">ORANGE</div>
+      <div class="plan-name">オレンジ</div>
+      <div class="plan-slots">限定 2 社</div>
+      <div class="plan-benefit">ロゴ掲載<br>お手軽プラン</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+   FORM
+   ============================================================ -->
+<div class="form-container">
+  <div class="form-card">
+
+    <!-- Steps -->
+    <div class="steps" id="steps">
+      <div class="step active" data-step="1">
+        <span class="step-num">1</span>
+        <span class="step-label">企業情報</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="2">
+        <span class="step-num">2</span>
+        <span class="step-label">詳細</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" data-step="3">
+        <span class="step-num">3</span>
+        <span class="step-label">確認</span>
+      </div>
+    </div>
+
+    <form id="sponsorForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+      <input type="hidden" name="access_key" value="96229340-010e-42e6-adf6-89c6d53e45bb">
+      <input type="hidden" name="subject" value="【ほやけん】年間パートナー応募がありました">
+      <input type="hidden" name="from_name" value="ほやけんいってこ〜わい">
+      <input type="hidden" name="redirect" value="">
+      <input type="hidden" name="plan" id="planInput" value="">
+
+      <!-- PAGE 1: 企業情報 -->
+      <div class="form-page active" data-page="1">
+        <h2>企業情報</h2>
+        <p class="form-subtitle">事業者様の基本情報をご入力ください</p>
+
+        <div class="form-group">
+          <label class="form-label">会社名 / 屋号<span class="required">必須</span></label>
+          <input type="text" class="form-input" name="company" placeholder="例：株式会社東予フーズ" required autocomplete="organization">
+          <span class="form-error">会社名をご入力ください</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">担当者名<span class="required">必須</span></label>
+          <input type="text" class="form-input" name="contact_name" placeholder="例：山田 太郎" required autocomplete="name">
+          <span class="form-error">担当者名をご入力ください</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">メールアドレス<span class="required">必須</span></label>
+          <input type="email" class="form-input" name="email" placeholder="例：info@example.com" required autocomplete="email">
+          <span class="form-error">正しいメールアドレスをご入力ください</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">電話番号</label>
+          <input type="tel" class="form-input" name="phone" placeholder="例：0897-xx-xxxx" autocomplete="tel">
+          <span class="form-hint">任意 — ご連絡がスムーズになります</span>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary" onclick="nextPage(1)">次へ進む →</button>
+        </div>
+      </div>
+
+      <!-- PAGE 2: 詳細 -->
+      <div class="form-page" data-page="2">
+        <h2>スポンサー詳細</h2>
+        <p class="form-subtitle">ご希望の内容をお聞かせください</p>
+
+        <div class="form-group">
+          <label class="form-label">希望プラン<span class="required">必須</span></label>
+          <select class="form-select" name="desired_plan" id="desiredPlan" required>
+            <option value="" disabled selected>プランを選択してください</option>
+            <option value="Gold Sponsor">ゴールドスポンサー（限定1社）</option>
+            <option value="Silver Sponsor">シルバースポンサー（限定1社）</option>
+            <option value="Bronze Sponsor">ブロンズスポンサー（限定1社）</option>
+            <option value="Orange Sponsor">オレンジスポンサー（限定2社）</option>
+          </select>
+          <span class="form-error">プランを選択してください</span>
+          <span class="form-hint">上のカードからも選択できます</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">業種</label>
+          <select class="form-select" name="industry">
+            <option value="" disabled selected>業種を選択してください</option>
+            <option value="飲食">飲食</option>
+            <option value="小売">小売</option>
+            <option value="不動産">不動産</option>
+            <option value="IT・Web">IT・Web</option>
+            <option value="建設">建設</option>
+            <option value="美容・健康">美容・健康</option>
+            <option value="教育">教育</option>
+            <option value="製造">製造</option>
+            <option value="農林水産">農林水産</option>
+            <option value="観光・宿泊">観光・宿泊</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">年間ご予算</label>
+          <div class="radio-group">
+            <div class="radio-item">
+              <input type="radio" name="budget" id="b1" value="〜5万円">
+              <label for="b1">〜5万円</label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" name="budget" id="b2" value="5〜10万円">
+              <label for="b2">5〜10万円</label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" name="budget" id="b3" value="10〜30万円">
+              <label for="b3">10〜30万円</label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" name="budget" id="b4" value="要相談">
+              <label for="b4">要相談</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ご質問・ご要望</label>
+          <textarea class="form-textarea" name="message" placeholder="掲載内容のご希望やご不明点があればご記入ください"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="prevPage(2)">← 戻る</button>
+          <button type="button" class="btn btn-primary" onclick="nextPage(2)">確認画面へ →</button>
+        </div>
+      </div>
+
+      <!-- PAGE 3: 確認 -->
+      <div class="form-page" data-page="3">
+        <h2>内容の確認</h2>
+        <p class="form-subtitle">以下の内容でお間違いございませんか？</p>
+
+        <div class="confirm-summary" id="confirmSummary"></div>
+
+        <div class="form-group">
+          <label class="checkbox-wrap">
+            <input type="checkbox" id="agreeCheck">
+            <span>入力内容に誤りがないことを確認しました。<br>ほやけんいってこ〜わい運営より折り返しご連絡いたします。</span>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="prevPage(3)">← 修正する</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn" disabled>送信する</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Success -->
+    <div class="form-success" id="formSuccess">
+      <div class="success-confetti">🎉</div>
+      <div class="success-icon">✓</div>
+      <h3>ご応募ありがとうございます！</h3>
+      <p>内容を確認の上、3営業日以内に<br>担当者よりご連絡いたします。</p>
+      <a href="index.html" class="btn-back-home">トップページへ戻る</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="form-footer">
+  &copy; 2026 ほやけんいってこ〜わい. All rights reserved.
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<!-- ============================================================
+   JAVASCRIPT
+   ============================================================ -->
+<script>
+(function() {
+  "use strict";
+
+  var form        = document.getElementById("sponsorForm");
+  var planInput   = document.getElementById("planInput");
+  var planCards   = document.querySelectorAll(".plan-card");
+  var planSelect  = document.getElementById("desiredPlan");
+  var agreeCheck  = document.getElementById("agreeCheck");
+  var submitBtn   = document.getElementById("submitBtn");
+  var progressBar = document.getElementById("progressBar");
+  var currentPage = 1;
+
+  /* ---- Toast ---- */
+  function showToast(msg, icon, duration) {
+    var toast = document.getElementById("toast");
+    document.getElementById("toastMsg").textContent = msg;
+    document.getElementById("toastIcon").textContent = icon || "✓";
+    toast.classList.add("show");
+    setTimeout(function() { toast.classList.remove("show"); }, duration || 3000);
+  }
+
+  /* ---- Progress bar ---- */
+  function updateProgress(page) {
+    var percent = (page / 3) * 100;
+    progressBar.style.width = percent + "%";
+  }
+  updateProgress(1);
+
+  /* ---- Plan card selection ---- */
+  planCards.forEach(function(card) {
+    card.addEventListener("click", function() {
+      planCards.forEach(function(c) { c.classList.remove("selected"); });
+      card.classList.add("selected");
+      var plan = card.getAttribute("data-plan");
+      planInput.value = plan;
+      if (planSelect) {
+        for (var i = 0; i < planSelect.options.length; i++) {
+          if (planSelect.options[i].value === plan) {
+            planSelect.selectedIndex = i;
+            break;
+          }
+        }
+      }
+      var name = card.querySelector(".plan-name").textContent;
+      showToast(name + "プランを選択しました", "✓", 2000);
+    });
+  });
+
+  /* ---- Step navigation with animation ---- */
+  function showPage(num, direction) {
+    var currentEl = document.querySelector(".form-page.active");
+    var targetEl  = document.querySelector('.form-page[data-page="' + num + '"]');
+
+    if (currentEl && currentEl !== targetEl) {
+      var exitClass = direction === "back" ? "exit-right" : "exit-left";
+      currentEl.classList.remove("active");
+      currentEl.classList.add(exitClass);
+      setTimeout(function() {
+        currentEl.classList.remove(exitClass);
+      }, 250);
+    }
+
+    setTimeout(function() {
+      document.querySelectorAll(".form-page").forEach(function(p) {
+        p.classList.remove("active", "exit-left", "exit-right");
+      });
+      if (targetEl) targetEl.classList.add("active");
+    }, direction ? 200 : 0);
+
+    // Update step indicators
+    document.querySelectorAll(".step").forEach(function(s) {
+      var sn = parseInt(s.getAttribute("data-step"));
+      s.classList.remove("active", "done");
+      if (sn === num) s.classList.add("active");
+      else if (sn < num) s.classList.add("done");
+    });
+    document.querySelectorAll(".step-line").forEach(function(line, idx) {
+      line.classList.toggle("done", idx < num - 1);
+    });
+
+    updateProgress(num);
+    currentPage = num;
+
+    // Scroll to form card top
+    var formCard = document.querySelector(".form-card");
+    if (formCard) {
+      var rect = formCard.getBoundingClientRect();
+      if (rect.top < 0 || rect.top > 200) {
+        formCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }
+
+  /* ---- Validation ---- */
+  function validatePage(num) {
+    var page = document.querySelector('.form-page[data-page="' + num + '"]');
+    var inputs = page.querySelectorAll("[required]");
+    var valid = true;
+    var firstError = null;
+
+    inputs.forEach(function(inp) {
+      var group = inp.closest(".form-group");
+      var errEl = group ? group.querySelector(".form-error") : null;
+      var isValid = true;
+
+      if (inp.type === "email") {
+        isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim());
+      } else if (inp.tagName === "SELECT") {
+        isValid = inp.value !== "";
+      } else {
+        isValid = inp.value.trim() !== "";
+      }
+
+      inp.classList.toggle("error", !isValid);
+      inp.classList.toggle("valid", isValid && inp.value.trim() !== "");
+      if (errEl) errEl.classList.toggle("show", !isValid);
+      if (!isValid) {
+        valid = false;
+        if (!firstError) firstError = inp;
+      }
+    });
+
+    if (!valid && firstError) {
+      firstError.focus();
+      showToast("入力内容をご確認ください", "⚠️", 2500);
+    }
+
+    return valid;
+  }
+
+  /* ---- Build confirmation summary ---- */
+  function buildSummary() {
+    var data = new FormData(form);
+    var fields = [
+      { key: "desired_plan", label: "希望プラン" },
+      { key: "company", label: "会社名 / 屋号" },
+      { key: "contact_name", label: "担当者名" },
+      { key: "email", label: "メールアドレス" },
+      { key: "phone", label: "電話番号" },
+      { key: "industry", label: "業種" },
+      { key: "budget", label: "年間予算" },
+      { key: "message", label: "ご質問・ご要望" }
+    ];
+
+    var html = "";
+    fields.forEach(function(f) {
+      var val = data.get(f.key);
+      if (!val || val.trim() === "") return;
+      html += '<div class="confirm-row">';
+      html += '<span class="confirm-label">' + f.label + '</span>';
+      html += '<span class="confirm-value">' + escapeHtml(val) + '</span>';
+      html += '</div>';
+    });
+
+    document.getElementById("confirmSummary").innerHTML = html;
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  /* ---- Public functions ---- */
+  window.nextPage = function(from) {
+    if (!validatePage(from)) return;
+    if (from === 2) buildSummary();
+    showPage(from + 1, "forward");
+  };
+
+  window.prevPage = function(from) {
+    showPage(from - 1, "back");
+  };
+
+  /* ---- Agree checkbox ---- */
+  agreeCheck.addEventListener("change", function() {
+    submitBtn.disabled = !agreeCheck.checked;
+  });
+
+  /* ---- Form submit via Web3Forms ---- */
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    if (!agreeCheck.checked) return;
+
+    submitBtn.disabled = true;
+    submitBtn.classList.add("btn-loading");
+    submitBtn.textContent = "送信中";
+
+    var data = new FormData(form);
+
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: data
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(result) {
+      if (result.success) {
+        form.style.display = "none";
+        document.getElementById("steps").style.display = "none";
+        document.getElementById("formSuccess").classList.add("show");
+        updateProgress(3);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        showToast("送信に失敗しました。もう一度お試しください", "❌", 4000);
+        submitBtn.disabled = false;
+        submitBtn.classList.remove("btn-loading");
+        submitBtn.textContent = "送信する";
+      }
+    })
+    .catch(function() {
+      showToast("ネットワークエラーが発生しました", "❌", 4000);
+      submitBtn.disabled = false;
+      submitBtn.classList.remove("btn-loading");
+      submitBtn.textContent = "送信する";
+    });
+  });
+
+  /* ---- Real-time validation feedback ---- */
+  document.querySelectorAll(".form-input, .form-select, .form-textarea").forEach(function(el) {
+    function clearError() {
+      el.classList.remove("error");
+      var errEl = el.closest(".form-group").querySelector(".form-error");
+      if (errEl) errEl.classList.remove("show");
+    }
+    function checkValid() {
+      clearError();
+      var val = el.value.trim();
+      if (val === "") {
+        el.classList.remove("valid");
+        return;
+      }
+      if (el.type === "email") {
+        el.classList.toggle("valid", /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
+      } else {
+        el.classList.add("valid");
+      }
+    }
+    el.addEventListener("input", checkValid);
+    el.addEventListener("change", checkValid);
+  });
+
+  /* ---- Sync select back to plan cards ---- */
+  if (planSelect) {
+    planSelect.addEventListener("change", function() {
+      var val = planSelect.value;
+      planCards.forEach(function(c) {
+        c.classList.toggle("selected", c.getAttribute("data-plan") === val);
+      });
+      planInput.value = val;
+    });
+  }
+
+})();
+</script>
+</body>
+</html>
