@@ -1,5 +1,4 @@
 const { Client } = require("@notionhq/client");
-
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const DATABASE_ID = process.env.NOTION_DATABASE_ID;
 
@@ -19,6 +18,10 @@ function getDate(prop) {
   if (!prop || prop.type !== "date" || !prop.date) return null;
   return prop.date.start || null;
 }
+function getDateEnd(prop) {
+  if (!prop || prop.type !== "date" || !prop.date) return null;
+  return prop.date.end || null;
+}
 function getUrl(prop) {
   if (!prop || prop.type !== "url") return "";
   return prop.url || "";
@@ -34,15 +37,24 @@ function getFiles(prop) {
   if (file.type === "external") return file.external.url;
   return "";
 }
+function getAnyText(prop) {
+  if (!prop) return "";
+  if (prop.type === "select" && prop.select) return prop.select.name || "";
+  if (prop.type === "multi_select") return prop.multi_select.map((s) => s.name).join(", ");
+  if (prop.type === "rich_text") return prop.rich_text.map((t) => t.plain_text).join("") || "";
+  if (prop.type === "title") return prop.title.map((t) => t.plain_text).join("") || "";
+  if (prop.type === "number") return String(prop.number || "");
+  return "";
+}
 
 function parseEvent(page) {
   const p = page.properties;
   const name = getTitle(p["イベント名"]) || getTitle(p["Name"]) || getTitle(p["名前"]) || getTitle(p["title"]) || "";
-  const area = getSelect(p["エリア"]) || getSelect(p["Area"]) || getSelect(p["地域"]) || "";
-  const startDate = getDate(p["開催日（開始）"]) || getDate(p["開催日"]) || getDate(p["開始日"]) || getDate(p["Start Date"]) || getDate(p["日付"]) || null;
-  const endDate = getDate(p["開催日（終了）"]) || getDate(p["終了日"]) || getDate(p["End Date"]) || null;
+  const area = getAnyText(p["エリア"]) || getAnyText(p["Area"]) || getAnyText(p["地域"]) || "";
+  const startDate = getDate(p["開始日"]) || getDate(p["開催日（開始）"]) || getDate(p["開催日"]) || getDate(p["Start Date"]) || getDate(p["日付"]) || null;
+  const endDate = getDateEnd(p["開始日"]) || getDate(p["終了日"]) || getDate(p["開催日（終了）"]) || getDate(p["End Date"]) || null;
   const categories = getMultiSelect(p["ジャンル"]) || getMultiSelect(p["Genre"]) || getMultiSelect(p["カテゴリ"]) || [];
-  const imageUrl = getFiles(p["イベント画像"]) || getFiles(p["画像"]) || getFiles(p["Image"]) || "";
+  const imageUrl = getFiles(p["画像"]) || getFiles(p["イベント画像"]) || getFiles(p["Image"]) || "";
   const detailUrl = getUrl(p["詳細URL"]) || getUrl(p["URL"]) || getUrl(p["リンク"]) || getRichText(p["詳細URL"]) || "";
   let coverUrl = imageUrl;
   if (!coverUrl && page.cover) {
@@ -59,8 +71,24 @@ module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "GET") return res.status(405).json({ error: "Method not allowed" });
   if (!process.env.NOTION_API_KEY || !DATABASE_ID) {
-    return res.status(500).json({ error: "Missing environment variables", hint: "Set NOTION_API_KEY and NOTION_DATABASE_ID in Vercel dashboard" });
+    return res.status(500).json({ error: "Missing environment variables" });
   }
+
+  if (req.query.debug === "1") {
+    try {
+      const response = await notion.databases.query({ database_id: DATABASE_ID, page_size: 1 });
+      const page = response.results[0];
+      if (!page) return res.status(200).json({ message: "No pages" });
+      const propInfo = {};
+      for (const [key, val] of Object.entries(page.properties)) {
+        propInfo[key] = { type: val.type };
+      }
+      return res.status(200).json({ propertyNames: Object.keys(page.properties), propertyTypes: propInfo });
+    } catch (e) {
+      return res.status(500).json({ error: e.message });
+    }
+  }
+
   try {
     let allResults = [];
     let hasMore = true;
