@@ -259,19 +259,20 @@ button { font-family: inherit; cursor: pointer; }
 
 .slider-section {
   position: relative;
-  padding: 52px 0 48px;
+  padding: 64px 0 56px;
   overflow: hidden;
-  background: #fff;
+  background: linear-gradient(165deg, #0c0c0c 0%, #1a1208 35%, #1c1510 60%, #0e0e0e 100%);
 }
 
-/* Subtle warm radial accents on white */
+/* Luxury gold ambient glow */
 .slider-section::before {
   content: "";
   position: absolute;
-  inset: -80px;
+  inset: -100px;
   background:
-    radial-gradient(ellipse 550px 400px at 20% 30%, rgba(243,112,33,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 400px 350px at 80% 70%, rgba(255,167,38,0.04) 0%, transparent 70%);
+    radial-gradient(ellipse 600px 400px at 15% 20%, rgba(212,160,0,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 350px at 85% 80%, rgba(205,127,50,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 300px 300px at 50% 50%, rgba(255,215,0,0.04) 0%, transparent 60%);
   z-index: 0;
   pointer-events: none;
 }
@@ -280,74 +281,86 @@ button { font-family: inherit; cursor: pointer; }
   position: absolute;
   inset: -60px;
   background:
-    radial-gradient(ellipse 350px 280px at 65% 40%, rgba(255,140,0,0.04) 0%, transparent 65%);
+    radial-gradient(ellipse 400px 250px at 70% 30%, rgba(255,193,7,0.05) 0%, transparent 65%);
   z-index: 0;
   pointer-events: none;
 }
 
-/* Subtle dot pattern */
+/* Shimmer animation */
+@keyframes bg-shimmer {
+  0%   { background-position: 0 0, 0 0; }
+  100% { background-position: 60px 60px, -40px 40px; }
+}
 .slider-section .slider-bg-grid {
   position: absolute;
   inset: 0;
   z-index: 1;
-  opacity: 0.35;
-  background-image: radial-gradient(circle, rgba(243,112,33,0.12) 1px, transparent 1px);
-  background-size: 24px 24px;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(circle, rgba(212,160,0,0.2) 0.5px, transparent 0.5px),
+    radial-gradient(circle, rgba(255,215,0,0.1) 0.5px, transparent 0.5px);
+  background-size: 32px 32px, 48px 48px;
+  background-position: 0 0, 16px 16px;
+  animation: bg-shimmer 8s linear infinite;
   pointer-events: none;
 }
 
-/* Section title — elegant on white */
+/* Section title — luxury gold */
 .slider-title {
   position: relative;
   z-index: 3;
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
-/* Decorative line above */
+/* Decorative gold line above */
 .slider-title::before {
   content: "";
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #F37021, transparent);
+  width: 50px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #D4A000, #FFD700, #D4A000, transparent);
   border-radius: 2px;
 }
 .slider-title h2 {
-  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
   font-weight: 900;
-  letter-spacing: 0.06em;
-  color: #1a1a1a;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #D4A000 0%, #FFD700 40%, #FFF5CC 55%, #FFD700 70%, #B8860B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
 }
 .slider-title p {
   font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
+  font-weight: 500;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: #bbb;
+  color: rgba(212,160,0,0.5);
 }
-/* Decorative line below */
+/* Decorative gold line below */
 .slider-title::after {
   content: "";
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #F37021, transparent);
+  width: 50px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #D4A000, #FFD700, #D4A000, transparent);
   border-radius: 2px;
 }
 
-/* Edge fade-out */
+/* Edge fade-out (dark) */
 .slider-fade-left,
 .slider-fade-right {
   position: absolute;
   top: 0; bottom: 0;
-  width: 80px;
+  width: 100px;
   z-index: 4;
   pointer-events: none;
 }
-.slider-fade-left  { left: 0;  background: linear-gradient(to right, #fff, transparent); }
-.slider-fade-right { right: 0; background: linear-gradient(to left, #fff, transparent); }
+.slider-fade-left  { left: 0;  background: linear-gradient(to right, #0c0c0c, transparent); }
+.slider-fade-right { right: 0; background: linear-gradient(to left, #0e0e0e, transparent); }
 
 /* Track */
 @keyframes scroll-infinite {
@@ -370,22 +383,24 @@ button { font-family: inherit; cursor: pointer; }
   animation-play-state: paused;
 }
 
-/* --- Elevated white cards on white bg --- */
+/* --- Glassmorphism cards on dark bg --- */
 .sponsor-card {
-  flex: 0 0 210px;
-  height: 170px;
+  flex: 0 0 220px;
+  height: 180px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   position: relative;
   cursor: pointer;
-  background: #fff;
-  border: 1.5px solid #f0f0f0;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s ease, border-color 0.35s ease;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 /* Top accent bar per rank */
@@ -395,40 +410,62 @@ button { font-family: inherit; cursor: pointer; }
   top: 0;
   left: 20%;
   right: 20%;
-  height: 3px;
+  height: 2px;
   border-radius: 0 0 4px 4px;
-  transition: left 0.3s ease, right 0.3s ease;
+  transition: left 0.4s ease, right 0.4s ease, opacity 0.4s ease;
 }
-.sponsor-card.gold::before   { background: linear-gradient(90deg, #FFD700, #FFC107); }
-.sponsor-card.silver::before { background: linear-gradient(90deg, #C0C0C0, #A8A8A8); }
-.sponsor-card.bronze::before { background: linear-gradient(90deg, #DBA058, #CD7F32); }
-.sponsor-card.orange::before { background: linear-gradient(90deg, #F37021, #ff8c3a); }
+.sponsor-card.gold::before   { background: linear-gradient(90deg, #FFD700, #FFC107, #FFD700); }
+.sponsor-card.silver::before { background: linear-gradient(90deg, #C0C0C0, #E8E8E8, #C0C0C0); }
+.sponsor-card.bronze::before { background: linear-gradient(90deg, #DBA058, #E8C090, #CD7F32); }
+.sponsor-card.orange::before { background: linear-gradient(90deg, #F37021, #ff9f43, #F37021); }
+
+/* Bottom glow per rank */
+.sponsor-card::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 30%;
+  right: 30%;
+  height: 1px;
+  border-radius: 4px 4px 0 0;
+  opacity: 0;
+  transition: opacity 0.4s ease, left 0.4s ease, right 0.4s ease;
+}
+.sponsor-card.gold::after   { background: linear-gradient(90deg, transparent, rgba(255,215,0,0.4), transparent); }
+.sponsor-card.silver::after { background: linear-gradient(90deg, transparent, rgba(200,200,200,0.3), transparent); }
+.sponsor-card.bronze::after { background: linear-gradient(90deg, transparent, rgba(205,127,50,0.3), transparent); }
+.sponsor-card.orange::after { background: linear-gradient(90deg, transparent, rgba(243,112,33,0.3), transparent); }
 
 .sponsor-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 12px 36px rgba(0,0,0,0.1);
+  transform: translateY(-8px) scale(1.03);
+  background: rgba(255,255,255,0.07);
 }
 .sponsor-card:hover::before {
-  left: 10%;
-  right: 10%;
+  left: 5%;
+  right: 5%;
+}
+.sponsor-card:hover::after {
+  opacity: 1;
+  left: 15%;
+  right: 15%;
 }
 
-/* --- Rank border glow on hover --- */
-.sponsor-card.gold:hover   { border-color: rgba(255,215,0,0.4); }
-.sponsor-card.silver:hover { border-color: rgba(192,192,192,0.5); }
-.sponsor-card.bronze:hover { border-color: rgba(205,127,50,0.4); }
-.sponsor-card.orange:hover { border-color: rgba(243,112,33,0.4); }
+/* Rank glow on hover */
+.sponsor-card.gold:hover   { border-color: rgba(255,215,0,0.25); box-shadow: 0 8px 40px rgba(212,160,0,0.15), 0 0 60px rgba(255,215,0,0.06), inset 0 1px 0 rgba(255,215,0,0.1); }
+.sponsor-card.silver:hover { border-color: rgba(200,200,200,0.25); box-shadow: 0 8px 40px rgba(200,200,200,0.1), 0 0 60px rgba(200,200,200,0.04), inset 0 1px 0 rgba(255,255,255,0.1); }
+.sponsor-card.bronze:hover { border-color: rgba(205,127,50,0.25); box-shadow: 0 8px 40px rgba(205,127,50,0.12), 0 0 60px rgba(205,127,50,0.05), inset 0 1px 0 rgba(205,127,50,0.1); }
+.sponsor-card.orange:hover { border-color: rgba(243,112,33,0.25); box-shadow: 0 8px 40px rgba(243,112,33,0.12), 0 0 60px rgba(243,112,33,0.05), inset 0 1px 0 rgba(243,112,33,0.1); }
 
 /* --- Text --- */
 .sponsor-card .rank-label {
   font-size: 0.55rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: #bbb;
+  color: rgba(255,255,255,0.35);
   transition: color 0.3s ease;
 }
-.sponsor-card:hover .rank-label { color: #999; }
+.sponsor-card:hover .rank-label { color: rgba(255,255,255,0.55); }
 
 .sponsor-card .main-label {
   font-size: 1.8rem;
@@ -436,40 +473,84 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: 0.05em;
   transition: filter 0.3s ease;
 }
-.sponsor-card:hover .main-label { filter: brightness(1.1); }
+.sponsor-card:hover .main-label { filter: brightness(1.2); }
 
-.sponsor-card.gold .main-label   { background: linear-gradient(135deg, #D4A000, #B8860B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.sponsor-card.silver .main-label { background: linear-gradient(135deg, #999, #777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.sponsor-card.bronze .main-label { background: linear-gradient(135deg, #CD7F32, #8B5E20); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.sponsor-card.orange .main-label { background: linear-gradient(135deg, #F37021, #E05500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sponsor-card.gold .main-label   { background: linear-gradient(135deg, #FFD700, #FFC107, #FFE066); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sponsor-card.silver .main-label { background: linear-gradient(135deg, #C0C0C0, #E0E0E0, #A8A8A8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sponsor-card.bronze .main-label { background: linear-gradient(135deg, #DBA058, #E8C090, #CD7F32); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sponsor-card.orange .main-label { background: linear-gradient(135deg, #F37021, #ff9f43, #F37021); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
 .sponsor-card .limit-label {
   font-size: 0.5rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.3em;
-  color: #ccc;
+  color: rgba(255,255,255,0.2);
   text-transform: uppercase;
   transition: color 0.3s ease;
 }
-.sponsor-card:hover .limit-label { color: #aaa; }
+.sponsor-card:hover .limit-label { color: rgba(255,255,255,0.4); }
+
+/* Rank icon */
+.sponsor-card .rank-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  filter: grayscale(0.3);
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+.sponsor-card:hover .rank-icon {
+  filter: grayscale(0) drop-shadow(0 0 6px rgba(255,215,0,0.4));
+  transform: scale(1.15);
+}
+
+/* CTA button */
+.sponsor-cta-wrap {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  margin-top: 36px;
+}
+.sponsor-cta-btn {
+  display: inline-block;
+  padding: 14px 40px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #0c0c0c;
+  background: linear-gradient(135deg, #FFD700, #FFC107, #FFE066);
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(212,160,0,0.25), 0 0 40px rgba(255,215,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.sponsor-cta-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 30px rgba(212,160,0,0.35), 0 0 60px rgba(255,215,0,0.12);
+}
+.sponsor-cta-btn .cta-arrow {
+  margin-left: 8px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.sponsor-cta-btn:hover .cta-arrow {
+  transform: translateX(4px);
+}
 
 /* --- Mobile --- */
 @media (max-width: 768px) {
   .slider-section {
-    padding: 36px 0;
-    background: #fff;
+    padding: 40px 0 36px;
   }
-  .slider-fade-left, .slider-fade-right { width: 30px; }
-  .slider-fade-left  { background: linear-gradient(to right, #fff, transparent); }
-  .slider-fade-right { background: linear-gradient(to left, #fff, transparent); }
+  .slider-fade-left, .slider-fade-right { width: 40px; }
+  .slider-fade-left  { background: linear-gradient(to right, #0c0c0c, transparent); }
+  .slider-fade-right { background: linear-gradient(to left, #0e0e0e, transparent); }
   .sponsor-card {
-    flex: 0 0 65vw;
-    max-width: 240px;
-    height: 150px;
+    flex: 0 0 60vw;
+    max-width: 220px;
+    height: 155px;
     border-radius: 18px;
   }
-  .slider-title { margin-bottom: 24px; }
-  .slider-title h2 { font-size: 1.2rem; }
+  .slider-title { margin-bottom: 28px; }
+  .slider-title h2 { font-size: 1.3rem; }
   .slider-title p { font-size: 0.55rem; letter-spacing: 0.2em; }
 }
 
@@ -1096,17 +1177,24 @@ button { font-family: inherit; cursor: pointer; }
   </div>
 
   <div class="sponsor-track">
-    <div class="sponsor-card gold"><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card silver"><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card bronze"><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card orange"><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
-    <div class="sponsor-card orange"><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card gold"><span class="rank-icon">&#x1F451;</span><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card silver"><span class="rank-icon">&#x1F4A0;</span><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card bronze"><span class="rank-icon">&#x1F396;</span><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card orange"><span class="rank-icon">&#x1F525;</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card orange"><span class="rank-icon">&#x1F525;</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
     <!-- duplicate for infinite loop -->
-    <div class="sponsor-card gold"><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card silver"><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card bronze"><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card orange"><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
-    <div class="sponsor-card orange"><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card gold"><span class="rank-icon">&#x1F451;</span><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card silver"><span class="rank-icon">&#x1F4A0;</span><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card bronze"><span class="rank-icon">&#x1F396;</span><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card orange"><span class="rank-icon">&#x1F525;</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card orange"><span class="rank-icon">&#x1F525;</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+  </div>
+
+  <!-- CTA button -->
+  <div class="sponsor-cta-wrap">
+    <a href="sponsor-form.html" class="sponsor-cta-btn">
+      パートナーになる <span class="cta-arrow">&rarr;</span>
+    </a>
   </div>
 </section>
 
