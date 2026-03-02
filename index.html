@@ -232,7 +232,7 @@ button { font-family: inherit; cursor: pointer; }
   padding: 0 40px;
 }
 @media (max-width: 768px) {
-  .container { padding: 0 16px; }
+  .container { padding: 0 16px; overflow-x: hidden; }
 }
 
 /* Old sponsor-banner hidden (now in hero-strip) */
@@ -755,6 +755,8 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  max-width: 100%;
   transition: transform 0.35s ease;
 }
 .event-card:hover .card-cover img { transform: scale(1.05); }
@@ -950,23 +952,149 @@ button { font-family: inherit; cursor: pointer; }
 .error-state button:hover { opacity: 0.85; }
 
 /* ============================================================
-   SCROLL-TO-TOP FAB + MUSIC PLAYER (unified)
+   TANUKI MUSIC CHARACTER + MINI PLAYER (right-bottom)
    ============================================================ */
 
-/* --- FAB container (right-bottom) --- */
+/* --- Container --- */
 .fab-wrap {
   position: fixed;
-  bottom: 28px;
-  right: 20px;
+  bottom: 0;
+  right: 16px;
   z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   pointer-events: none;
 }
 
-/* --- Mini music player (expands from FAB) --- */
+/* --- Tanuki character button --- */
+.tanuki-btn {
+  pointer-events: auto;
+  width: 100px;
+  height: 100px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  /* Initially hidden below viewport */
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.4s ease;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+}
+.tanuki-btn.visible {
+  transform: translateY(12px);
+  opacity: 1;
+}
+.tanuki-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Idle: subtle float */
+@keyframes tanuki-idle {
+  0%, 100% { transform: translateY(12px); }
+  50%      { transform: translateY(6px); }
+}
+.tanuki-btn.visible:not(.playing):not(.peek) {
+  animation: tanuki-idle 3s ease-in-out infinite;
+}
+
+/* Peek / ひょっこり entrance */
+@keyframes tanuki-peek {
+  0%   { transform: translateY(110%); opacity: 0; }
+  40%  { transform: translateY(-8px); opacity: 1; }
+  55%  { transform: translateY(18px); }
+  70%  { transform: translateY(4px); }
+  85%  { transform: translateY(14px); }
+  100% { transform: translateY(12px); opacity: 1; }
+}
+.tanuki-btn.peek {
+  animation: tanuki-peek 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Playing: music groove dance */
+@keyframes tanuki-groove {
+  0%, 100% { transform: translateY(12px) rotate(0deg) scale(1); }
+  15%      { transform: translateY(6px) rotate(-5deg) scale(1.03); }
+  30%      { transform: translateY(14px) rotate(3deg) scale(0.97); }
+  45%      { transform: translateY(4px) rotate(-3deg) scale(1.04); }
+  60%      { transform: translateY(16px) rotate(4deg) scale(0.98); }
+  75%      { transform: translateY(2px) rotate(-4deg) scale(1.02); }
+  90%      { transform: translateY(12px) rotate(2deg) scale(1); }
+}
+.tanuki-btn.playing {
+  animation: tanuki-groove 1.4s ease-in-out infinite;
+}
+
+/* Music notes float animation */
+@keyframes note-float {
+  0%   { transform: translate(0, 0) scale(0.5) rotate(0deg); opacity: 0; }
+  15%  { opacity: 1; transform: translate(0, -8px) scale(1) rotate(-10deg); }
+  100% { transform: translate(var(--nx, 20px), -60px) scale(0.3) rotate(var(--nr, 30deg)); opacity: 0; }
+}
+.tanuki-notes {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.tanuki-note {
+  position: absolute;
+  font-size: 1.1rem;
+  opacity: 0;
+  animation: note-float 2s ease-out infinite;
+}
+.tanuki-note:nth-child(1) { --nx: -25px; --nr: -20deg; animation-delay: 0s; }
+.tanuki-note:nth-child(2) { --nx: 20px; --nr: 35deg; animation-delay: 0.5s; }
+.tanuki-note:nth-child(3) { --nx: -10px; --nr: -40deg; animation-delay: 1s; }
+.tanuki-note:nth-child(4) { --nx: 30px; --nr: 25deg; animation-delay: 1.5s; }
+
+/* Speech bubble tooltip */
+.tanuki-bubble {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: #3d2000;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  margin-bottom: 6px;
+}
+.tanuki-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #fff;
+}
+.tanuki-btn.visible:not(.playing) .tanuki-bubble {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}
+.tanuki-btn.playing .tanuki-bubble {
+  opacity: 0;
+  transform: translateX(-50%) translateY(4px);
+}
+
+/* --- Mini music player (expands above tanuki) --- */
 .fab-player {
   pointer-events: auto;
   background: #fff;
@@ -1069,53 +1197,8 @@ button { font-family: inherit; cursor: pointer; }
 }
 .fab-player-close:hover { color: #F37021; }
 
-/* --- The FAB button itself --- */
-.fab-top-btn {
-  pointer-events: auto;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, #F37021, #ff9a4a);
-  color: #fff;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 4px 16px rgba(243,112,33,0.35),
-    0 1px 4px rgba(0,0,0,0.08);
-  opacity: 0;
-  transform: translateY(16px) scale(0.8);
-  transition: opacity 0.3s ease,
-              transform 0.3s cubic-bezier(0.4,0,0.2,1),
-              box-shadow 0.3s ease;
-}
-.fab-top-btn.visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-.fab-top-btn:hover {
-  box-shadow:
-    0 6px 24px rgba(243,112,33,0.45),
-    0 2px 8px rgba(0,0,0,0.08);
-  transform: translateY(-2px) scale(1.05);
-}
-.fab-top-btn:active {
-  transform: translateY(0) scale(0.96);
-}
-
-/* Orange glow pulse on FAB when player appears */
-@keyframes fab-glow-pulse {
-  0%   { box-shadow: 0 4px 16px rgba(243,112,33,0.35), 0 0 0 0 rgba(243,112,33,0.4); }
-  50%  { box-shadow: 0 4px 16px rgba(243,112,33,0.35), 0 0 0 12px rgba(243,112,33,0); }
-  100% { box-shadow: 0 4px 16px rgba(243,112,33,0.35), 0 0 0 0 rgba(243,112,33,0); }
-}
-.fab-top-btn.pulse {
-  animation: fab-glow-pulse 0.8s ease-out;
-}
+/* --- Scroll-to-top (hidden, uses tanuki double-tap) --- */
+.fab-top-btn { display: none !important; }
 
 /* Hide old elements */
 .music-player { display: none !important; }
@@ -1224,9 +1307,16 @@ button { font-family: inherit; cursor: pointer; }
 /* --- Mobile: compact FAB + player --- */
 @media (max-width: 600px) {
   .fab-wrap {
-    bottom: 16px;
-    right: 12px;
+    right: 8px;
     gap: 6px;
+  }
+  .tanuki-btn {
+    width: 80px;
+    height: 80px;
+  }
+  .tanuki-bubble {
+    font-size: 0.6rem;
+    padding: 5px 10px;
   }
   .fab-player {
     padding: 6px 10px;
@@ -1249,11 +1339,6 @@ button { font-family: inherit; cursor: pointer; }
   }
   .fab-player-close {
     font-size: 0.55rem;
-  }
-  .fab-top-btn {
-    width: 42px;
-    height: 42px;
-    font-size: 1rem;
   }
   .search-filter-bar {
     position: relative;
@@ -1442,7 +1527,7 @@ button { font-family: inherit; cursor: pointer; }
 </div>
 
 <!-- ============================================================
-   FAB: SCROLL-TO-TOP + MUSIC PLAYER
+   TANUKI MUSIC CHARACTER + MINI PLAYER
    ============================================================ -->
 <div class="fab-wrap" id="fabWrap">
   <div class="fab-player" id="fabPlayer">
@@ -1456,7 +1541,16 @@ button { font-family: inherit; cursor: pointer; }
     <span class="fab-player-time" id="fabPlayerTime">0:00</span>
     <button class="fab-player-close" id="fabPlayerClose" aria-label="閉じる">&#10005;</button>
   </div>
-  <button class="fab-top-btn" id="fabTopBtn" aria-label="ページトップへ">&uarr;</button>
+  <button class="tanuki-btn" id="tanukiBtn" aria-label="タオッキーの歌を聴く">
+    <span class="tanuki-bubble">🎵 タップして聴いてね!</span>
+    <div class="tanuki-notes" id="tanukiNotes" style="display:none">
+      <span class="tanuki-note">♪</span>
+      <span class="tanuki-note">♫</span>
+      <span class="tanuki-note">♬</span>
+      <span class="tanuki-note">🎵</span>
+    </div>
+    <img src="taokki.png" alt="タオッキー" width="100" height="100" loading="lazy">
+  </button>
 </div>
 
 <!-- ============================================================
@@ -1915,10 +2009,11 @@ button { font-family: inherit; cursor: pointer; }
   }
 
   /* ==========================================================
-     FAB: SCROLL-TO-TOP + MUSIC PLAYER (unified)
+     TANUKI MUSIC CHARACTER + MINI PLAYER
      ========================================================== */
   var AUDIO_URL = "/taokki-song.mp3";
-  var fabTopBtn = document.getElementById("fabTopBtn");
+  var tanukiBtn = document.getElementById("tanukiBtn");
+  var tanukiNotes = document.getElementById("tanukiNotes");
   var fabPlayer = document.getElementById("fabPlayer");
   var fabPlayBtn = document.getElementById("fabPlayBtn");
   var fabPlayerBar = document.getElementById("fabPlayerBar");
@@ -1927,53 +2022,33 @@ button { font-family: inherit; cursor: pointer; }
 
   var audio = null;
   var isPlaying = false;
-  var playerDismissed = false;
-  var lastScrollY = 0;
-  var scrollingUp = false;
+  var playerShown = false;
+  var tanukiAppeared = false;
 
-  // Show/hide FAB on scroll
+  // Tanuki ひょっこり entrance on scroll
   window.addEventListener("scroll", function () {
     var current = window.scrollY;
-    scrollingUp = current < lastScrollY;
-    lastScrollY = current;
-
-    if (current > 300) {
-      fabTopBtn.classList.add("visible");
-      if (scrollingUp && !playerDismissed) {
-        if (!fabPlayer.classList.contains("visible")) {
-          fabPlayer.classList.add("visible");
-          fabPlayer.classList.add("glow");
-          fabTopBtn.classList.add("pulse");
-          setTimeout(function () {
-            fabPlayer.classList.remove("glow");
-            fabTopBtn.classList.remove("pulse");
-          }, 1200);
-        }
-      }
-    } else {
-      fabTopBtn.classList.remove("visible");
-      fabPlayer.classList.remove("visible");
+    if (current > 200 && !tanukiAppeared) {
+      tanukiAppeared = true;
+      tanukiBtn.classList.add("peek");
+      tanukiBtn.classList.add("visible");
+      // After peek animation, switch to idle
+      setTimeout(function () {
+        tanukiBtn.classList.remove("peek");
+      }, 1300);
+    } else if (current <= 100 && tanukiAppeared && !isPlaying) {
+      tanukiBtn.classList.remove("visible", "peek", "playing");
+      tanukiNotes.style.display = "none";
+      fabPlayer.classList.remove("visible", "glow");
+      tanukiAppeared = false;
+      playerShown = false;
     }
   }, { passive: true });
-
-  // Scroll to top
-  fabTopBtn.addEventListener("click", function () {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    if (!playerDismissed) {
-      fabPlayer.classList.add("visible");
-      fabPlayer.classList.add("glow");
-      fabTopBtn.classList.add("pulse");
-      setTimeout(function () {
-        fabPlayer.classList.remove("glow");
-        fabTopBtn.classList.remove("pulse");
-      }, 1200);
-    }
-  });
 
   // Init audio
   function initAudio() {
     if (audio) return;
-    if (!AUDIO_URL) { console.warn("\u97F3\u697DURL\u304C\u8A2D\u5B9A\u3055\u308C\u3066\u3044\u307E\u305B\u3093"); return; }
+    if (!AUDIO_URL) { console.warn("音楽URLが設定されていません"); return; }
     audio = new Audio(AUDIO_URL);
     audio.loop = true;
     audio.volume = 0.4;
@@ -1988,17 +2063,55 @@ button { font-family: inherit; cursor: pointer; }
     });
   }
 
-  // Play / Pause
+  // Tanuki tap → toggle play/pause + show player
+  tanukiBtn.addEventListener("click", function () {
+    initAudio();
+    if (!audio) return;
+
+    if (isPlaying) {
+      // Pause
+      audio.pause();
+      isPlaying = false;
+      tanukiBtn.classList.remove("playing");
+      tanukiNotes.style.display = "none";
+      fabPlayBtn.innerHTML = "&#9654;";
+    } else {
+      // Play
+      audio.play().then(function () {
+        isPlaying = true;
+        tanukiBtn.classList.add("playing");
+        tanukiNotes.style.display = "";
+        fabPlayBtn.innerHTML = "&#9208;";
+        // Show mini player
+        if (!playerShown) {
+          playerShown = true;
+          fabPlayer.classList.add("visible");
+          fabPlayer.classList.add("glow");
+          setTimeout(function () {
+            fabPlayer.classList.remove("glow");
+          }, 1200);
+        }
+      }).catch(function () {
+        console.warn("再生にはユーザー操作が必要です");
+      });
+    }
+  });
+
+  // Mini player play/pause button
   fabPlayBtn.addEventListener("click", function () {
     initAudio();
     if (!audio) return;
     if (isPlaying) {
       audio.pause();
       fabPlayBtn.innerHTML = "&#9654;";
+      tanukiBtn.classList.remove("playing");
+      tanukiNotes.style.display = "none";
     } else {
       audio.play().then(function () {
         fabPlayBtn.innerHTML = "&#9208;";
-      }).catch(function () { console.warn("\u518D\u751F\u306B\u306F\u30E6\u30FC\u30B6\u30FC\u64CD\u4F5C\u304C\u5FC5\u8981\u3067\u3059"); });
+        tanukiBtn.classList.add("playing");
+        tanukiNotes.style.display = "";
+      }).catch(function () { console.warn("再生にはユーザー操作が必要です"); });
     }
     isPlaying = !isPlaying;
   });
@@ -2007,7 +2120,9 @@ button { font-family: inherit; cursor: pointer; }
   fabCloseBtn.addEventListener("click", function () {
     if (audio) { audio.pause(); isPlaying = false; fabPlayBtn.innerHTML = "&#9654;"; }
     fabPlayer.classList.remove("visible", "glow");
-    playerDismissed = true;
+    tanukiBtn.classList.remove("playing");
+    tanukiNotes.style.display = "none";
+    playerShown = false;
   });
 
   // Pause on tab hidden
@@ -2015,6 +2130,8 @@ button { font-family: inherit; cursor: pointer; }
     if (document.hidden && isPlaying && audio) {
       audio.pause();
       fabPlayBtn.innerHTML = "&#9654;";
+      tanukiBtn.classList.remove("playing");
+      tanukiNotes.style.display = "none";
       isPlaying = false;
     }
   });
