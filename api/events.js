@@ -85,17 +85,18 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: "Missing environment variables" });
   }
 
-  // Debug mode: show raw property types
+  // Debug mode: show raw property types and values
   if (req.query.debug === "1") {
     try {
-      const response = await notion.databases.query({ database_id: DATABASE_ID, page_size: 1 });
+      const response = await notion.databases.query({ database_id: DATABASE_ID, page_size: 3 });
       const page = response.results[0];
       if (!page) return res.status(200).json({ message: "No pages" });
       const propInfo = {};
       for (const [key, val] of Object.entries(page.properties)) {
-        propInfo[key] = { type: val.type };
+        propInfo[key] = { type: val.type, raw: val };
       }
-      return res.status(200).json({ propertyNames: Object.keys(page.properties), propertyTypes: propInfo });
+      const samples = response.results.map((p) => parseEvent(p));
+      return res.status(200).json({ propertyNames: Object.keys(page.properties), propertyTypes: propInfo, samples });
     } catch (e) {
       return res.status(500).json({ error: e.message });
     }
