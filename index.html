@@ -267,6 +267,9 @@ button { font-family: inherit; cursor: pointer; }
   padding: 64px 0 56px;
   overflow: hidden;
   background: linear-gradient(165deg, #0c0c0c 0%, #1a1208 35%, #1c1510 60%, #0e0e0e 100%);
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent 5%, rgba(212,160,0,0.3) 30%, rgba(255,215,0,0.5) 50%, rgba(212,160,0,0.3) 70%, transparent 95%) 1;
 }
 
 /* Luxury gold ambient glow */
@@ -310,6 +313,39 @@ button { font-family: inherit; cursor: pointer; }
   pointer-events: none;
 }
 
+/* Gold floating particles */
+.gold-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+@keyframes particle-float {
+  0%   { transform: translateY(100%) scale(0); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+}
+.gp {
+  position: absolute;
+  bottom: -10px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,215,0,0.8), rgba(212,160,0,0.3));
+  box-shadow: 0 0 6px rgba(255,215,0,0.3);
+  animation: particle-float linear infinite;
+}
+.gp1 { left: 8%;  animation-duration: 7s;  animation-delay: 0s;   width: 2px; height: 2px; }
+.gp2 { left: 22%; animation-duration: 9s;  animation-delay: 1.5s; width: 3px; height: 3px; }
+.gp3 { left: 38%; animation-duration: 6s;  animation-delay: 3s;   width: 2px; height: 2px; }
+.gp4 { left: 52%; animation-duration: 8s;  animation-delay: 0.5s; width: 4px; height: 4px; }
+.gp5 { left: 65%; animation-duration: 10s; animation-delay: 2s;   width: 2px; height: 2px; }
+.gp6 { left: 78%; animation-duration: 7s;  animation-delay: 4s;   width: 3px; height: 3px; }
+.gp7 { left: 88%; animation-duration: 8s;  animation-delay: 1s;   width: 2px; height: 2px; }
+.gp8 { left: 45%; animation-duration: 11s; animation-delay: 5s;   width: 3px; height: 3px; }
+
 /* Section title — luxury gold */
 .slider-title {
   position: relative;
@@ -329,15 +365,21 @@ button { font-family: inherit; cursor: pointer; }
   background: linear-gradient(90deg, transparent, #D4A000, #FFD700, #D4A000, transparent);
   border-radius: 2px;
 }
+@keyframes title-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
 .slider-title h2 {
   font-size: clamp(1.5rem, 4vw, 2.2rem);
   font-weight: 900;
   letter-spacing: 0.08em;
-  background: linear-gradient(135deg, #D4A000 0%, #FFD700 40%, #FFF5CC 55%, #FFD700 70%, #B8860B 100%);
+  background: linear-gradient(105deg, #B8860B 0%, #D4A000 20%, #FFD700 35%, #FFF5CC 50%, #FFD700 65%, #D4A000 80%, #B8860B 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: none;
+  animation: title-shimmer 4s ease-in-out infinite;
 }
 .slider-title p {
   font-size: 0.62rem;
@@ -400,12 +442,30 @@ button { font-family: inherit; cursor: pointer; }
   gap: 10px;
   position: relative;
   cursor: pointer;
+  overflow: hidden;
   background: rgba(255,255,255,0.04);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
   transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+/* Hover shimmer sweep */
+.sponsor-card .card-shimmer {
+  position: absolute;
+  top: 0; left: -100%; right: 0; bottom: 0;
+  width: 50%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.06) 45%, rgba(255,215,0,0.08) 50%, rgba(255,255,255,0.06) 55%, transparent 80%);
+  transition: none;
+  pointer-events: none;
+  z-index: 10;
+}
+.sponsor-card:hover .card-shimmer {
+  animation: card-shimmer-sweep 0.8s ease forwards;
+}
+@keyframes card-shimmer-sweep {
+  0%   { left: -100%; }
+  100% { left: 150%; }
 }
 
 /* Top accent bar per rank */
@@ -496,15 +556,33 @@ button { font-family: inherit; cursor: pointer; }
 .sponsor-card:hover .limit-label { color: rgba(255,255,255,0.4); }
 
 /* Rank icon */
-.sponsor-card .rank-icon {
-  font-size: 1.4rem;
-  line-height: 1;
-  filter: grayscale(0.3);
-  transition: filter 0.3s ease, transform 0.3s ease;
+@keyframes icon-pulse-gold {
+  0%, 100% { filter: grayscale(0.15) drop-shadow(0 0 3px rgba(255,215,0,0.15)); }
+  50%      { filter: grayscale(0) drop-shadow(0 0 10px rgba(255,215,0,0.35)); }
 }
+@keyframes icon-pulse-silver {
+  0%, 100% { filter: grayscale(0.2) drop-shadow(0 0 2px rgba(200,200,200,0.1)); }
+  50%      { filter: grayscale(0) drop-shadow(0 0 8px rgba(200,200,200,0.25)); }
+}
+@keyframes icon-pulse-bronze {
+  0%, 100% { filter: grayscale(0.2) drop-shadow(0 0 2px rgba(205,127,50,0.1)); }
+  50%      { filter: grayscale(0) drop-shadow(0 0 8px rgba(205,127,50,0.25)); }
+}
+@keyframes icon-pulse-orange {
+  0%, 100% { filter: grayscale(0.2) drop-shadow(0 0 2px rgba(243,112,33,0.1)); }
+  50%      { filter: grayscale(0) drop-shadow(0 0 8px rgba(243,112,33,0.25)); }
+}
+.sponsor-card .rank-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+.sponsor-card.gold .rank-icon   { animation: icon-pulse-gold 3s ease-in-out infinite; }
+.sponsor-card.silver .rank-icon { animation: icon-pulse-silver 3.5s ease-in-out infinite; }
+.sponsor-card.bronze .rank-icon { animation: icon-pulse-bronze 3.5s ease-in-out infinite; }
+.sponsor-card.orange .rank-icon { animation: icon-pulse-orange 4s ease-in-out infinite; }
 .sponsor-card:hover .rank-icon {
-  filter: grayscale(0) drop-shadow(0 0 6px rgba(255,215,0,0.4));
-  transform: scale(1.15);
+  transform: scale(1.2);
 }
 
 /* --- Mobile --- */
@@ -1134,6 +1212,11 @@ button { font-family: inherit; cursor: pointer; }
    ============================================================ -->
 <section class="slider-section" id="sponsorSlider">
   <div class="slider-bg-grid"></div>
+  <div class="gold-particles" aria-hidden="true">
+    <span class="gp gp1"></span><span class="gp gp2"></span><span class="gp gp3"></span>
+    <span class="gp gp4"></span><span class="gp gp5"></span><span class="gp gp6"></span>
+    <span class="gp gp7"></span><span class="gp gp8"></span>
+  </div>
   <div class="slider-fade-left"></div>
   <div class="slider-fade-right"></div>
 
@@ -1144,17 +1227,17 @@ button { font-family: inherit; cursor: pointer; }
   </div>
 
   <div class="sponsor-track">
-    <div class="sponsor-card gold"><span class="rank-icon">&#x1F451;</span><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card silver"><span class="rank-icon">🥈</span><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card bronze"><span class="rank-icon">🥉</span><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card orange"><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
-    <div class="sponsor-card orange"><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card gold"><span class="card-shimmer"></span><span class="rank-icon">&#x1F451;</span><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card silver"><span class="card-shimmer"></span><span class="rank-icon">🥈</span><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card bronze"><span class="card-shimmer"></span><span class="rank-icon">🥉</span><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card orange"><span class="card-shimmer"></span><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card orange"><span class="card-shimmer"></span><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
     <!-- duplicate for infinite loop -->
-    <div class="sponsor-card gold"><span class="rank-icon">&#x1F451;</span><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card silver"><span class="rank-icon">🥈</span><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card bronze"><span class="rank-icon">🥉</span><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
-    <div class="sponsor-card orange"><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
-    <div class="sponsor-card orange"><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card gold"><span class="card-shimmer"></span><span class="rank-icon">&#x1F451;</span><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card silver"><span class="card-shimmer"></span><span class="rank-icon">🥈</span><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card bronze"><span class="card-shimmer"></span><span class="rank-icon">🥉</span><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card orange"><span class="card-shimmer"></span><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card orange"><span class="card-shimmer"></span><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
   </div>
 
   <!-- Partner CTA -->
