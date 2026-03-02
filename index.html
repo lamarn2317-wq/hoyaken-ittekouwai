@@ -600,11 +600,12 @@ button { font-family: inherit; cursor: pointer; }
 }
 .card-tags {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  flex-direction: column;
+  gap: 4px;
 }
 .tag {
   display: inline-block;
+  width: fit-content;
   padding: 2px 10px;
   border-radius: 20px;
   font-size: 0.68rem;
@@ -1296,11 +1297,11 @@ button { font-family: inherit; cursor: pointer; }
 
     // Body
     html += '<div class="card-body">';
+    html += '<div class="card-title">' + escapeHtml(event.name) + '</div>';
     html += '<div class="card-tags">';
     html += '<span class="tag tag-region ' + regionTagCss + '">' + escapeHtml(regionLabel) + '</span>';
     if (catLabel) html += '<span class="tag tag-category">' + escapeHtml(catLabel) + '</span>';
     html += '</div>';
-    html += '<div class="card-title">' + escapeHtml(event.name) + '</div>';
     if (dateStr) html += '<div class="card-date">' + escapeHtml(dateStr) + '</div>';
     if (event.detailUrl && linkText) html += '<span class="card-link">' + linkText + '</span>';
     html += '</div>';
