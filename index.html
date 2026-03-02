@@ -55,17 +55,22 @@ button { font-family: inherit; cursor: pointer; }
   min-height: 220px;
   max-height: none;
 }
+@keyframes logo-fade-in {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
 .hero-logo {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 85%;
-  max-width: 700px;
+  width: 95%;
+  max-width: 900px;
   height: auto;
   z-index: 2;
-  drop-shadow: 0 4px 20px rgba(0,0,0,0.3);
   filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+  opacity: 0;
+  animation: logo-fade-in 2s ease-out 0.3s forwards;
 }
 
 /* ---- Unified warm orange strip (stats + sponsor CTA) ---- */
