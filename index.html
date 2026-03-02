@@ -64,21 +64,25 @@ button { font-family: inherit; cursor: pointer; }
   display: block;
 }
 @keyframes logo-fade-in {
-  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.92); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.88) translateZ(0); }
+  60%  { opacity: 0.85; transform: translate(-50%, -50%) scale(0.98) translateZ(0); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) translateZ(0); }
 }
 .hero-logo {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) translateZ(0);
   width: 70%;
   max-width: 600px;
   height: auto;
   z-index: 2;
   filter: drop-shadow(0 2px 12px rgba(0,0,0,0.4));
   opacity: 0;
-  animation: logo-fade-in 2s ease-out 0.3s forwards;
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  animation: logo-fade-in 3s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s forwards;
 }
 @media (max-width: 768px) {
   .hero-banner {
