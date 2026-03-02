@@ -1313,31 +1313,21 @@ button { font-family: inherit; cursor: pointer; }
     html += '</div>';
     html += '<div class="scroll-hint">\u2190 \u30B9\u30EF\u30A4\u30D7\u3067\u4ED6\u306E\u30A4\u30D9\u30F3\u30C8\u3092\u898B\u308B \u2192</div>';
 
-    // Then: render each region section
+    // Then: render each region section (skip if 0 events)
     CONFIG.REGIONS.forEach(function (region) {
       var regionEvents = regionGroups[region.key];
+      if (!regionEvents || !regionEvents.length) return; // 0件なら非表示
       html += '<div class="region-heading ' + region.css + '">';
       html += '<span class="region-dot" style="background:' + region.dot + '"></span>';
       html += '<h2>' + region.key + '</h2>';
-      if (regionEvents && regionEvents.length) {
-        html += '<span class="event-count">' + regionEvents.length + ' \u30A4\u30D9\u30F3\u30C8</span>';
-      } else {
-        html += '<span class="event-count">Coming soon</span>';
-      }
+      html += '<span class="event-count">' + regionEvents.length + ' \u30A4\u30D9\u30F3\u30C8</span>';
       html += '</div>';
-
       html += '<div class="event-grid" data-region="' + region.tagCss + '">';
-      if (regionEvents && regionEvents.length) {
-        regionEvents.forEach(function (ev) {
-          html += renderEventCard(ev);
-        });
-      } else {
-        html += '<div class="no-results" style="display:block;opacity:0.5;">\u30A4\u30D9\u30F3\u30C8\u60C5\u5831\u3092\u6E96\u5099\u4E2D\u3067\u3059</div>';
-      }
+      regionEvents.forEach(function (ev) {
+        html += renderEventCard(ev);
+      });
       html += '</div>';
-      if (regionEvents && regionEvents.length) {
-        html += '<div class="scroll-hint">\u2190 \u30B9\u30EF\u30A4\u30D7\u3067\u4ED6\u306E\u30A4\u30D9\u30F3\u30C8\u3092\u898B\u308B \u2192</div>';
-      }
+      html += '<div class="scroll-hint">\u2190 \u30B9\u30EF\u30A4\u30D7\u3067\u4ED6\u306E\u30A4\u30D9\u30F3\u30C8\u3092\u898B\u308B \u2192</div>';
     });
 
     // Render "other" region (if events don't match any region)
