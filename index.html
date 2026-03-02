@@ -45,12 +45,27 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%;
   line-height: 0;
   animation: hero-fade-in 0.6s ease-out both;
+  overflow: hidden;
 }
-.hero-banner img {
+.hero-video {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
   object-fit: cover;
+  display: block;
+  min-height: 220px;
+  max-height: 400px;
+}
+.hero-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  max-width: 500px;
+  height: auto;
+  z-index: 2;
+  drop-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
 }
 
 /* ---- Unified warm orange strip (stats + sponsor CTA) ---- */
@@ -1014,7 +1029,10 @@ button { font-family: inherit; cursor: pointer; }
    ============================================================ -->
 <header class="hero">
   <div class="hero-banner">
-    <img src="23.png" alt="ほやけんいってこーわい — 東予のイベント情報">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="/hero-bg.mp4" type="video/mp4">
+    </video>
+    <img src="23.png" alt="ほやけんいってこーわい — 東予のイベント情報" class="hero-logo">
   </div>
   <!-- Unified warm orange strip: stats + sponsor CTA -->
   <div class="hero-strip">
