@@ -1690,16 +1690,39 @@ button { font-family: inherit; cursor: pointer; }
   /* ==========================================================
      HERO STATS UPDATE
      ========================================================== */
+  function animateCountUp(el, target, suffix, duration) {
+    var start = 0;
+    var startTime = null;
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(eased * target);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
   function updateHeroStats(events) {
     var statEvents = document.getElementById("statEvents");
     var statAreas = document.getElementById("statAreas");
-    if (statEvents) statEvents.textContent = events.length + "+";
+    var statCategories = document.getElementById("statCategories");
 
     // Count unique areas
     var areas = {};
     events.forEach(function (ev) { if (ev.area) areas[ev.area] = true; });
     var areaCount = Object.keys(areas).length;
-    if (statAreas) statAreas.textContent = areaCount || "--";
+
+    // Count unique categories
+    var cats = {};
+    events.forEach(function (ev) { if (ev.categories) ev.categories.forEach(function (c) { cats[c] = true; }); });
+    var catCount = Object.keys(cats).length || 7;
+
+    // Set initial "0" then animate
+    if (statEvents) { statEvents.textContent = "0+"; animateCountUp(statEvents, events.length, "+", 1400); }
+    if (statAreas) { statAreas.textContent = "0"; animateCountUp(statAreas, areaCount, "", 1200); }
+    if (statCategories) { statCategories.textContent = "0"; animateCountUp(statCategories, catCount, "", 1000); }
   }
 
   /* ==========================================================
@@ -2019,43 +2042,7 @@ button { font-family: inherit; cursor: pointer; }
     if (filterBar) { filterBar.classList.add("reveal"); observer.observe(filterBar); }
   })();
 
-  /* ==========================================================
-     GIMMICK 2: Hero stats count-up animation
-     ========================================================== */
-  (function initCountUp() {
-    function animateCount(el, target, duration) {
-      var start = 0;
-      var startTime = null;
-      function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        var progress = Math.min((timestamp - startTime) / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-        var current = Math.round(eased * target);
-        el.textContent = current;
-        if (progress < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          var el = entry.target;
-          var val = parseInt(el.textContent, 10);
-          if (!isNaN(val) && val > 0 && !el.dataset.counted) {
-            el.dataset.counted = "1";
-            el.textContent = "0";
-            animateCount(el, val, 1200);
-          }
-          observer.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll(".hero-stat-num").forEach(function (el) {
-      observer.observe(el);
-    });
-  })();
+  /* GIMMICK 2: Count-up is now integrated into updateHeroStats() */
 
   /* ==========================================================
      GIMMICK 3: Mouse-follow parallax on hero logo (PC only)
