@@ -933,6 +933,42 @@ button { font-family: inherit; cursor: pointer; }
 .music-player { display: none !important; }
 .scroll-top-btn { display: none !important; }
 
+/* --- Mobile: compact FAB + player --- */
+@media (max-width: 600px) {
+  .fab-wrap {
+    bottom: 16px;
+    right: 12px;
+    gap: 6px;
+  }
+  .fab-player {
+    padding: 6px 10px;
+    gap: 6px;
+    border-radius: 16px;
+  }
+  .fab-player-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.6rem;
+  }
+  .fab-player-progress {
+    width: 50px;
+  }
+  .fab-player-name {
+    font-size: 0.55rem;
+  }
+  .fab-player-time {
+    font-size: 0.45rem;
+  }
+  .fab-player-close {
+    font-size: 0.55rem;
+  }
+  .fab-top-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+}
+
 /* ============================================================
    NO RESULTS
    ============================================================ */
