@@ -1170,11 +1170,11 @@ button { font-family: inherit; cursor: pointer; }
 
     // Regions with display settings
     REGIONS: [
-      { key: "今治市",     label: "\uD83D\uDFE6今治市",     css: "bg-imabari",   dot: "#0369a1", tagCss: "imabari" },
-      { key: "西条市",     label: "\uD83D\uDFE7西条市",     css: "bg-saijo",     dot: "#ea580c", tagCss: "saijo" },
-      { key: "新居浜市",   label: "\uD83D\uDFEA新居浜市",   css: "bg-niihama",   dot: "#7c3aed", tagCss: "niihama" },
-      { key: "四国中央市", label: "\uD83D\uDFE8四国中央市", css: "bg-shikoku-c", dot: "#eab308", tagCss: "shikoku-c" },
-      { key: "越智郡",     label: "\uD83D\uDFE9越智郡",     css: "bg-ochi",      dot: "#15803d", tagCss: "ochi" }
+      { key: "今治市",     tag: "\uD83D\uDFE6今治市",     css: "bg-imabari",   dot: "#0369a1", tagCss: "imabari" },
+      { key: "西条市",     tag: "\uD83D\uDFE7西条市",     css: "bg-saijo",     dot: "#ea580c", tagCss: "saijo" },
+      { key: "新居浜市",   tag: "\uD83D\uDFEA新居浜市",   css: "bg-niihama",   dot: "#7c3aed", tagCss: "niihama" },
+      { key: "四国中央市", tag: "\uD83D\uDFE8四国中央市", css: "bg-shikoku-c", dot: "#eab308", tagCss: "shikoku-c" },
+      { key: "越智郡",     tag: "\uD83D\uDFE9越智郡",     css: "bg-ochi",      dot: "#15803d", tagCss: "ochi" }
     ],
 
     // Default region for "toyo" heading (catch-all)
@@ -1274,7 +1274,7 @@ button { font-family: inherit; cursor: pointer; }
     var coverIcon = catConfig ? catConfig.icon : "\uD83D\uDCC5";
     var catLabel = catConfig ? catConfig.label : (event.categories && event.categories.length ? event.categories[0] : "");
     var regionTagCss = regionConfig ? regionConfig.tagCss : CONFIG.TOYO.tagCss;
-    var regionLabel = event.area || CONFIG.TOYO.label;
+    var regionLabel = (regionConfig && regionConfig.tag) ? regionConfig.tag : (event.area || CONFIG.TOYO.label);
     var dateStr = formatDate(event.startDate, event.endDate);
     var linkText = getLinkText(event.detailUrl);
 
@@ -1358,7 +1358,7 @@ button { font-family: inherit; cursor: pointer; }
       if (!regionEvents || !regionEvents.length) return; // 0件なら非表示
       html += '<div class="region-heading ' + region.css + '">';
       html += '<span class="region-dot" style="background:' + region.dot + '"></span>';
-      html += '<h2>' + (region.label || region.key) + '</h2>';
+      html += '<h2>' + region.key + '</h2>';
       html += '<span class="event-count">' + regionEvents.length + ' \u30A4\u30D9\u30F3\u30C8</span>';
       html += '</div>';
       html += '<div class="event-grid" data-region="' + region.tagCss + '">';
