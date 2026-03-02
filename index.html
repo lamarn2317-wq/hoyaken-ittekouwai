@@ -142,62 +142,66 @@ button { font-family: inherit; cursor: pointer; }
   background: rgba(255,255,255,0.2);
 }
 
-/* Bottom row: sponsor CTA */
-.hero-strip-cta {
+/* Partner CTA (inside slider section) */
+.partner-cta-wrap {
+  position: relative;
+  z-index: 5;
   display: flex;
+  justify-content: flex-end;
+  padding: 24px 32px 0;
+}
+.partner-cta {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
-  padding: 14px 24px 16px;
-  background: rgba(0,0,0,0.12);
-  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(212,160,0,0.2);
+  border-radius: 50px;
   text-decoration: none;
-  transition: background 0.2s ease;
-  border-top: 1px solid rgba(255,255,255,0.15);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
-.hero-strip-cta:hover {
-  background: rgba(0,0,0,0.18);
+.partner-cta:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(212,160,0,0.4);
+  box-shadow: 0 4px 24px rgba(212,160,0,0.12);
+  transform: translateY(-2px);
 }
-.strip-badge {
-  background: #fff;
-  color: #F37021;
-  font-size: 0.68rem;
-  font-weight: 900;
-  padding: 4px 12px;
+.partner-cta-badge {
+  background: linear-gradient(135deg, #FFD700, #FFC107);
+  color: #1a1208;
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 4px 10px;
   border-radius: 999px;
   letter-spacing: 0.04em;
   white-space: nowrap;
-  animation: strip-badge-pulse 2.5s ease-in-out infinite;
+  animation: badge-glow 2.5s ease-in-out infinite;
 }
-@keyframes strip-badge-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
-  50% { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+@keyframes badge-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0.3); }
+  50% { box-shadow: 0 0 0 5px rgba(255,215,0,0); }
 }
-.strip-text {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #fff;
+.partner-cta-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.75);
   white-space: nowrap;
-  letter-spacing: 0.02em;
-  text-shadow: 0 1px 3px rgba(160,50,0,0.2);
+  letter-spacing: 0.04em;
 }
-.strip-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 7px 20px;
-  background: #fff;
-  color: #F37021;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+.partner-cta:hover .partner-cta-text {
+  color: rgba(255,255,255,0.95);
 }
-.strip-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+.partner-cta-arrow {
+  font-size: 1rem;
+  color: rgba(212,160,0,0.6);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.partner-cta:hover .partner-cta-arrow {
+  transform: translateX(4px);
+  color: rgba(255,215,0,0.9);
 }
 
 @keyframes hero-fade-in {
@@ -209,9 +213,10 @@ button { font-family: inherit; cursor: pointer; }
   .hero-strip-stats { padding: 14px 12px 12px; }
   .hero-stat { padding: 0 16px; }
   .hero-stat-num { font-size: 1.2rem; }
-  .hero-strip-cta { padding: 12px 16px 14px; gap: 10px; }
-  .strip-text { font-size: 0.82rem; }
-  .strip-btn { padding: 6px 16px; font-size: 0.72rem; }
+  .partner-cta-wrap { padding: 20px 16px 0; justify-content: center; }
+  .partner-cta { padding: 10px 18px; gap: 10px; }
+  .partner-cta-text { font-size: 0.75rem; }
+  .partner-cta-badge { font-size: 0.55rem; padding: 3px 8px; }
 }
 
 /* ============================================================
@@ -1121,11 +1126,6 @@ button { font-family: inherit; cursor: pointer; }
         <span class="hero-stat-label">カテゴリ</span>
       </div>
     </div>
-    <a href="sponsor-form.html" class="hero-strip-cta">
-      <span class="strip-badge">限定5社</span>
-      <span class="strip-text">年間スポンサー募集中</span>
-      <span class="strip-btn">詳細を見る →</span>
-    </a>
   </div>
 </header>
 
@@ -1157,6 +1157,14 @@ button { font-family: inherit; cursor: pointer; }
     <div class="sponsor-card orange"><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
   </div>
 
+  <!-- Partner CTA -->
+  <div class="partner-cta-wrap">
+    <a href="sponsor-form.html" class="partner-cta">
+      <span class="partner-cta-badge">限定5社</span>
+      <span class="partner-cta-text">年間パートナー募集中</span>
+      <span class="partner-cta-arrow">&rarr;</span>
+    </a>
+  </div>
 </section>
 
 <!-- ============================================================
