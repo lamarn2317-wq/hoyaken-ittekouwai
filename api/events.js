@@ -118,10 +118,17 @@ module.exports = async function handler(req, res) {
     // 重複除去（同じイベント名は最初の1件だけ残す）
     const allEvents = allResults.map(parseEvent).filter((e) => e.name);
     const seen = new Set();
-    const events = allEvents.filter((e) => {
+    const unique = allEvents.filter((e) => {
       if (seen.has(e.name)) return false;
       seen.add(e.name);
       return true;
+    });
+    // 終了日（なければ開始日）が過ぎたイベントを除外
+    const today = new Date().toISOString().split("T")[0];
+    const events = unique.filter((e) => {
+      const endDay = e.endDate || e.startDate;
+      if (!endDay) return true; // 日付なしは表示
+      return endDay >= today;
     });
     res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
     return res.status(200).json({ events, totalCount: events.length, cachedAt: new Date().toISOString() });
