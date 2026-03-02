@@ -61,8 +61,15 @@ function parseEvent(page) {
   const name = getTitle(findProp(p, "イベント名")) || getTitle(findProp(p, "Name")) || getTitle(findProp(p, "名前")) || "";
   const rawArea = getAnyText(findProp(p, "エリア")) || getAnyText(findProp(p, "Area")) || getAnyText(findProp(p, "地域")) || "";
   const area = rawArea.replace(/^[\p{Emoji}\p{Emoji_Presentation}\u200d\ufe0f]+/gu, "").trim();
-  const startDate = getDate(findProp(p, "開始日")) || getDate(findProp(p, "開催日")) || getDate(findProp(p, "Start Date")) || null;
-  const endDate = getDateEnd(findProp(p, "開始日")) || getDate(findProp(p, "終了日")) || getDate(findProp(p, "End Date")) || null;
+  // 開始日・終了日両方のフィールドから取得（どちらに入力されてても拾う）
+  const s1 = getDate(findProp(p, "開始日"));
+  const s2 = getDate(findProp(p, "終了日"));
+  const e1 = getDateEnd(findProp(p, "開始日"));
+  const e2 = getDateEnd(findProp(p, "終了日"));
+  // 全日付を集めて最小=開始、最大=終了
+  const allDates = [s1, s2, e1, e2].filter(Boolean).sort();
+  const startDate = allDates[0] || null;
+  const endDate = allDates.length > 1 ? allDates[allDates.length - 1] : null;
   const rawCategories = getMultiSelect(findProp(p, "ジャンル")) || getMultiSelect(findProp(p, "Genre")) || getMultiSelect(findProp(p, "カテゴリ")) || [];
   const categories = rawCategories.map((c) => c.replace(/^[\p{Emoji}\p{Emoji_Presentation}\u200d\ufe0f]+/gu, "").trim());
   const imageUrl = getFiles(findProp(p, "画像")) || getFiles(findProp(p, "イベント画像")) || getFiles(findProp(p, "Image")) || "";
