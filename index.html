@@ -266,21 +266,22 @@ button { font-family: inherit; cursor: pointer; }
   position: relative;
   padding: 64px 0 56px;
   overflow: hidden;
-  background: linear-gradient(165deg, #0c0c0c 0%, #1a1208 35%, #1c1510 60%, #0e0e0e 100%);
+  background: linear-gradient(165deg, #080c08 0%, #0d1a0d 20%, #1a1208 45%, #0f1a0c 65%, #0a0e0a 100%);
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   border-image: linear-gradient(90deg, transparent 5%, rgba(212,160,0,0.3) 30%, rgba(255,215,0,0.5) 50%, rgba(212,160,0,0.3) 70%, transparent 95%) 1;
 }
 
-/* Luxury gold ambient glow */
+/* Forest + gold ambient glow */
 .slider-section::before {
   content: "";
   position: absolute;
   inset: -100px;
   background:
-    radial-gradient(ellipse 600px 400px at 15% 20%, rgba(212,160,0,0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 500px 350px at 85% 80%, rgba(205,127,50,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 300px 300px at 50% 50%, rgba(255,215,0,0.04) 0%, transparent 60%);
+    radial-gradient(ellipse 700px 500px at 10% 30%, rgba(34,85,34,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 400px at 90% 70%, rgba(20,80,40,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 50% 20%, rgba(212,160,0,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 400px 300px at 75% 50%, rgba(34,100,34,0.06) 0%, transparent 60%);
   z-index: 0;
   pointer-events: none;
 }
@@ -289,27 +290,29 @@ button { font-family: inherit; cursor: pointer; }
   position: absolute;
   inset: -60px;
   background:
-    radial-gradient(ellipse 400px 250px at 70% 30%, rgba(255,193,7,0.05) 0%, transparent 65%);
+    radial-gradient(ellipse 400px 250px at 30% 80%, rgba(40,90,30,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 350px 200px at 70% 30%, rgba(255,193,7,0.04) 0%, transparent 65%);
   z-index: 0;
   pointer-events: none;
 }
 
 /* Shimmer animation */
 @keyframes bg-shimmer {
-  0%   { background-position: 0 0, 0 0; }
-  100% { background-position: 60px 60px, -40px 40px; }
+  0%   { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 60px 60px, -40px 40px, 30px -30px; }
 }
 .slider-section .slider-bg-grid {
   position: absolute;
   inset: 0;
   z-index: 1;
-  opacity: 0.18;
+  opacity: 0.2;
   background-image:
-    radial-gradient(circle, rgba(212,160,0,0.2) 0.5px, transparent 0.5px),
-    radial-gradient(circle, rgba(255,215,0,0.1) 0.5px, transparent 0.5px);
-  background-size: 32px 32px, 48px 48px;
-  background-position: 0 0, 16px 16px;
-  animation: bg-shimmer 8s linear infinite;
+    radial-gradient(circle, rgba(212,160,0,0.15) 0.5px, transparent 0.5px),
+    radial-gradient(circle, rgba(34,85,34,0.18) 0.5px, transparent 0.5px),
+    radial-gradient(circle, rgba(255,215,0,0.08) 0.5px, transparent 0.5px);
+  background-size: 32px 32px, 40px 40px, 56px 56px;
+  background-position: 0 0, 20px 10px, 8px 28px;
+  animation: bg-shimmer 10s linear infinite;
   pointer-events: none;
 }
 
@@ -333,9 +336,17 @@ button { font-family: inherit; cursor: pointer; }
   width: 3px;
   height: 3px;
   border-radius: 50%;
+  animation: particle-float linear infinite;
+}
+/* Gold particles */
+.gp.gold {
   background: radial-gradient(circle, rgba(255,215,0,0.8), rgba(212,160,0,0.3));
   box-shadow: 0 0 6px rgba(255,215,0,0.3);
-  animation: particle-float linear infinite;
+}
+/* Green firefly particles */
+.gp.green {
+  background: radial-gradient(circle, rgba(100,200,80,0.7), rgba(34,120,34,0.2));
+  box-shadow: 0 0 8px rgba(80,180,60,0.3);
 }
 .gp1 { left: 8%;  animation-duration: 7s;  animation-delay: 0s;   width: 2px; height: 2px; }
 .gp2 { left: 22%; animation-duration: 9s;  animation-delay: 1.5s; width: 3px; height: 3px; }
@@ -345,6 +356,9 @@ button { font-family: inherit; cursor: pointer; }
 .gp6 { left: 78%; animation-duration: 7s;  animation-delay: 4s;   width: 3px; height: 3px; }
 .gp7 { left: 88%; animation-duration: 8s;  animation-delay: 1s;   width: 2px; height: 2px; }
 .gp8 { left: 45%; animation-duration: 11s; animation-delay: 5s;   width: 3px; height: 3px; }
+.gp9 { left: 15%; animation-duration: 9s;  animation-delay: 2.5s; width: 3px; height: 3px; }
+.gp10{ left: 60%; animation-duration: 8s;  animation-delay: 3.5s; width: 2px; height: 2px; }
+.gp11{ left: 82%; animation-duration: 10s; animation-delay: 0.8s; width: 3px; height: 3px; }
 
 /* Section title — luxury gold */
 .slider-title {
@@ -406,8 +420,8 @@ button { font-family: inherit; cursor: pointer; }
   z-index: 4;
   pointer-events: none;
 }
-.slider-fade-left  { left: 0;  background: linear-gradient(to right, #0c0c0c, transparent); }
-.slider-fade-right { right: 0; background: linear-gradient(to left, #0e0e0e, transparent); }
+.slider-fade-left  { left: 0;  background: linear-gradient(to right, #080c08, transparent); }
+.slider-fade-right { right: 0; background: linear-gradient(to left, #0a0e0a, transparent); }
 
 /* Track */
 @keyframes scroll-infinite {
@@ -591,8 +605,8 @@ button { font-family: inherit; cursor: pointer; }
     padding: 40px 0 36px;
   }
   .slider-fade-left, .slider-fade-right { width: 40px; }
-  .slider-fade-left  { background: linear-gradient(to right, #0c0c0c, transparent); }
-  .slider-fade-right { background: linear-gradient(to left, #0e0e0e, transparent); }
+  .slider-fade-left  { background: linear-gradient(to right, #080c08, transparent); }
+  .slider-fade-right { background: linear-gradient(to left, #0a0e0a, transparent); }
   .sponsor-card {
     flex: 0 0 60vw;
     max-width: 220px;
@@ -1313,9 +1327,10 @@ button { font-family: inherit; cursor: pointer; }
 <section class="slider-section" id="sponsorSlider">
   <div class="slider-bg-grid"></div>
   <div class="gold-particles" aria-hidden="true">
-    <span class="gp gp1"></span><span class="gp gp2"></span><span class="gp gp3"></span>
-    <span class="gp gp4"></span><span class="gp gp5"></span><span class="gp gp6"></span>
-    <span class="gp gp7"></span><span class="gp gp8"></span>
+    <span class="gp gold gp1"></span><span class="gp green gp2"></span><span class="gp gold gp3"></span>
+    <span class="gp green gp4"></span><span class="gp gold gp5"></span><span class="gp green gp6"></span>
+    <span class="gp gold gp7"></span><span class="gp green gp8"></span><span class="gp green gp9"></span>
+    <span class="gp gold gp10"></span><span class="gp green gp11"></span>
   </div>
   <div class="slider-fade-left"></div>
   <div class="slider-fade-right"></div>
