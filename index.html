@@ -115,19 +115,20 @@ button { font-family: inherit; cursor: pointer; }
 }
 .hero-site-logo {
   position: absolute;
-  top: 16px;
-  left: 20px;
-  width: 56px;
+  top: 50%;
+  left: 28px;
+  transform: translateY(-50%);
+  width: 140px;
   height: auto;
   z-index: 10;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.45));
   opacity: 0;
   animation: logo-fade-in 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 .hero-site-logo:hover {
-  transform: scale(1.08);
+  transform: translateY(-50%) scale(1.06);
 }
 @media (max-width: 768px) {
   .hero-banner {
@@ -143,9 +144,8 @@ button { font-family: inherit; cursor: pointer; }
     max-width: none;
   }
   .hero-site-logo {
-    top: 10px;
     left: 12px;
-    width: 42px;
+    width: 80px;
   }
 }
 
