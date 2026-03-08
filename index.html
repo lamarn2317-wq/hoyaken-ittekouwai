@@ -635,7 +635,7 @@ button { font-family: inherit; cursor: pointer; }
    ============================================================ */
 .search-filter-bar {
   position: sticky;
-  top: 0;
+  top: 49px;
   z-index: 100;
   background: rgba(250,250,250,0.92);
   backdrop-filter: blur(12px);
@@ -1381,9 +1381,79 @@ button { font-family: inherit; cursor: pointer; }
 .card-cover img.loaded {
   opacity: 1;
 }
+
+/* ============================================================
+   SITE NAVIGATION BAR
+   ============================================================ */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.site-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  padding: 0 40px;
+}
+.site-nav-link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.25s ease;
+  position: relative;
+}
+.site-nav-link:hover { color: #F37021; }
+.site-nav-link.active { color: #F37021; font-weight: 800; }
+.site-nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background: linear-gradient(90deg, #F37021, #ff8c3a);
+  border-radius: 3px 3px 0 0;
+}
+.site-nav-icon { font-size: 1rem; }
+.site-nav-label { letter-spacing: 0.04em; }
+
+@media (max-width: 768px) {
+  .site-nav-inner { padding: 0 16px; }
+  .site-nav-link { padding: 12px 0; font-size: 0.82rem; }
+}
 </style>
 </head>
 <body>
+
+<!-- ============================================================
+   SITE NAVIGATION
+   ============================================================ -->
+<nav class="site-nav" id="siteNav">
+  <div class="site-nav-inner">
+    <a href="/" class="site-nav-link active" data-page="events">
+      <span class="site-nav-icon">📅</span>
+      <span class="site-nav-label">イベント</span>
+    </a>
+    <a href="/lessons.html" class="site-nav-link" data-page="lessons">
+      <span class="site-nav-icon">🎓</span>
+      <span class="site-nav-label">習い事</span>
+    </a>
+  </div>
+</nav>
 
 <!-- ============================================================
    HERO
