@@ -12,7 +12,32 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ほやけんいってこーわい | 東予のイベント情報</title>
-<meta name="description" content="愛媛県東予地域（新居浜・西条・今治）のイベント情報ポータル">
+<meta name="description" content="愛媛県東予地域（新居浜・西条・今治・四国中央）のイベント・習い事情報ポータル。地元をもっと楽しもう！">
+
+<!-- ===== Favicon ===== -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#F37021">
+
+<!-- ===== OGP / Open Graph ===== -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ほやけんいってこーわい | 東予のイベント情報">
+<meta property="og:description" content="愛媛県東予地域（新居浜・西条・今治・四国中央）のイベント・習い事情報ポータル。地元をもっと楽しもう！">
+<meta property="og:image" content="https://hoyaken-ittekouwai.vercel.app/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://hoyaken-ittekouwai.vercel.app/">
+<meta property="og:site_name" content="ほやけんいってこーわい">
+<meta property="og:locale" content="ja_JP">
+
+<!-- ===== Twitter Card ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ほやけんいってこーわい | 東予のイベント情報">
+<meta name="twitter:description" content="愛媛県東予地域のイベント・習い事情報ポータル。地元をもっと楽しもう！">
+<meta name="twitter:image" content="https://hoyaken-ittekouwai.vercel.app/ogp.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -1362,13 +1387,316 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* ============================================================
-   FOOTER
+   FOOTER — Premium dark forest theme
    ============================================================ */
 .site-footer {
-  text-align: center;
-  padding: 48px 16px 80px;
-  color: #9ca3af;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(165deg, #0a0e0a 0%, #0d1a0d 30%, #1a1208 60%, #0a0e0a 100%);
+  color: rgba(255,255,255,0.6);
+  font-size: 0.78rem;
+  padding: 0;
+}
+
+/* Decorative top border */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 5%, rgba(243,112,33,0.4) 30%, rgba(255,215,0,0.5) 50%, rgba(243,112,33,0.4) 70%, transparent 95%);
+}
+
+/* Floating particles in footer */
+.footer-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.footer-particles .fp {
+  position: absolute;
+  border-radius: 50%;
+  animation: particle-float linear infinite;
+}
+.footer-particles .fp.gold {
+  background: radial-gradient(circle, rgba(255,215,0,0.6), rgba(212,160,0,0.2));
+  box-shadow: 0 0 4px rgba(255,215,0,0.2);
+}
+.footer-particles .fp.green {
+  background: radial-gradient(circle, rgba(100,200,80,0.5), rgba(34,120,34,0.15));
+  box-shadow: 0 0 6px rgba(80,180,60,0.2);
+}
+
+.footer-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 40px 32px;
+}
+
+/* Top section: 3 columns */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+/* Brand column */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.footer-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.footer-logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(243,112,33,0.3));
+}
+.footer-logo-text {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+.footer-tagline {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.7;
+  max-width: 280px;
+}
+
+/* Social buttons row */
+.footer-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+.footer-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.footer-social-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.footer-social-btn:hover::after { opacity: 1; }
+.footer-social-btn:hover {
+  transform: translateY(-3px) scale(1.08);
+}
+.footer-social-btn.line-btn {
+  background: #06C755;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(6,199,85,0.3);
+}
+.footer-social-btn.line-btn:hover { box-shadow: 0 6px 24px rgba(6,199,85,0.5); }
+.footer-social-btn.ig-btn {
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(253,29,29,0.3);
+}
+.footer-social-btn.ig-btn:hover { box-shadow: 0 6px 24px rgba(253,29,29,0.5); }
+.footer-social-btn.oc-btn {
+  background: linear-gradient(135deg, #06C755, #00b341);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(6,199,85,0.3);
   font-size: 0.75rem;
+  font-weight: 800;
+}
+.footer-social-btn.oc-btn:hover { box-shadow: 0 6px 24px rgba(6,199,85,0.5); }
+.footer-social-btn.line-btn svg,
+.footer-social-btn.ig-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Open Chat CTA in footer */
+.footer-openchat {
+  margin-top: 12px;
+}
+.footer-oc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #06C755, #00b341);
+  color: #fff;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 12px rgba(6,199,85,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.footer-oc-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.footer-oc-btn:hover::after { opacity: 1; }
+.footer-oc-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 24px rgba(6,199,85,0.5);
+}
+.footer-oc-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.footer-oc-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  font-size: 0.55rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Nav columns */
+.footer-nav-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: rgba(255,215,0,0.6);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.footer-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-nav-list a {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-nav-list a:hover {
+  color: #F37021;
+  padding-left: 4px;
+}
+.footer-nav-list a .nav-emoji {
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+.footer-nav-list a:hover .nav-emoji {
+  transform: scale(1.2);
+}
+
+/* Divider */
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), rgba(212,160,0,0.15), rgba(255,255,255,0.08), transparent);
+  margin-bottom: 24px;
+}
+
+/* Bottom bar */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+}
+.footer-copy {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.03em;
+}
+.footer-made {
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.footer-made .heart {
+  color: #F37021;
+  font-size: 0.7rem;
+  animation: heart-beat 1.5s ease-in-out infinite;
+}
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+
+/* Tanuki wave animation in footer */
+.footer-tanuki {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  opacity: 0.15;
+  animation: footer-tanuki-sway 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes footer-tanuki-sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer-inner { padding: 40px 20px 24px; }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+  .footer-brand { align-items: center; }
+  .footer-logo-wrap { justify-content: center; }
+  .footer-tagline { max-width: none; text-align: center; }
+  .footer-social { justify-content: center; }
+  .footer-nav-list { align-items: center; }
+  .footer-nav-list a:hover { padding-left: 0; }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  .footer-tanuki { right: 16px; bottom: 12px; width: 48px; height: 48px; }
+}
+@media (max-width: 480px) {
+  .footer-inner { padding: 32px 16px 20px; }
 }
 
 /* ============================================================
@@ -1568,7 +1896,77 @@ button { font-family: inherit; cursor: pointer; }
    FOOTER
    ============================================================ -->
 <footer class="site-footer">
-  &copy; 2026 ほやけんいってこ〜わい. All rights reserved.
+  <!-- Floating particles -->
+  <div class="footer-particles" aria-hidden="true">
+    <span class="fp gold" style="left:10%;width:2px;height:2px;animation-duration:8s;animation-delay:0s;"></span>
+    <span class="fp green" style="left:25%;width:3px;height:3px;animation-duration:10s;animation-delay:1.5s;"></span>
+    <span class="fp gold" style="left:45%;width:2px;height:2px;animation-duration:7s;animation-delay:3s;"></span>
+    <span class="fp green" style="left:65%;width:2px;height:2px;animation-duration:9s;animation-delay:0.5s;"></span>
+    <span class="fp gold" style="left:80%;width:3px;height:3px;animation-duration:11s;animation-delay:2s;"></span>
+    <span class="fp green" style="left:92%;width:2px;height:2px;animation-duration:8s;animation-delay:4s;"></span>
+  </div>
+
+  <!-- Tanuki watermark -->
+  <img src="taokki.png" alt="" class="footer-tanuki" loading="lazy">
+
+  <div class="footer-inner">
+    <!-- 3-column grid -->
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="footer-logo-wrap">
+          <img src="taokki.png" alt="タオッキー" class="footer-logo-img" width="44" height="44" loading="lazy">
+          <span class="footer-logo-text">ほやけんいってこーわい</span>
+        </div>
+        <p class="footer-tagline">愛媛県東予地域（今治・西条・新居浜・四国中央）のイベント・習い事情報ポータル。地元をもっと楽しもう！</p>
+        <div class="footer-social">
+          <a href="https://lin.ee/Nlqgalr" target="_blank" rel="noopener" class="footer-social-btn line-btn" aria-label="LINEで友だち追加">
+            <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 5.94 2 10.7c0 2.66 1.46 5.02 3.75 6.57-.13.46-.84 2.95-.87 3.13 0 0-.02.14.07.2.09.05.2.01.2.01.27-.04 3.12-2.06 3.62-2.41.73.1 1.48.16 2.23.16 5.52 0 10-3.94 10-8.7S17.52 2 12 2z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/hoyaken_ittekouwai" target="_blank" rel="noopener" class="footer-social-btn ig-btn" aria-label="Instagramをフォロー">
+            <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+        <!-- Open Chat CTA -->
+        <div class="footer-openchat">
+          <a href="https://line.me/ti/g2/Q9y42-AFxyLpGJAMysqeBgb7WL3GKcNHPE8LrA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener" class="footer-oc-btn">
+            <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 5.94 2 10.7c0 2.66 1.46 5.02 3.75 6.57-.13.46-.84 2.95-.87 3.13 0 0-.02.14.07.2.09.05.2.01.2.01.27-.04 3.12-2.06 3.62-2.41.73.1 1.48.16 2.23.16 5.52 0 10-3.94 10-8.7S17.52 2 12 2z"/></svg>
+            オープンチャットに参加
+            <span class="footer-oc-badge">雑談OK</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Pages -->
+      <div>
+        <h3 class="footer-nav-title">Pages</h3>
+        <ul class="footer-nav-list">
+          <li><a href="/"><span class="nav-emoji">📅</span> イベント情報</a></li>
+          <li><a href="/lessons.html"><span class="nav-emoji">🎓</span> 東予の習い事</a></li>
+          <li><a href="/sponsor-form.html"><span class="nav-emoji">🤝</span> パートナー募集</a></li>
+        </ul>
+      </div>
+
+      <!-- Info -->
+      <div>
+        <h3 class="footer-nav-title">Info</h3>
+        <ul class="footer-nav-list">
+          <li><a href="https://lin.ee/Nlqgalr" target="_blank" rel="noopener"><span class="nav-emoji">💬</span> LINEでお問い合わせ</a></li>
+          <li><a href="https://lin.ee/Nlqgalr" target="_blank" rel="noopener"><span class="nav-emoji">📣</span> イベント掲載依頼</a></li>
+          <li><a href="/sponsor-form.html"><span class="nav-emoji">✨</span> 年間パートナー募集</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="footer-divider"></div>
+
+    <!-- Bottom -->
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 ほやけんいってこ〜わい. All rights reserved.</span>
+      <span class="footer-made">Made with <span class="heart">&hearts;</span> in 東予</span>
+    </div>
+  </div>
 </footer>
 
 <!-- ============================================================
