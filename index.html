@@ -113,16 +113,6 @@ button { font-family: inherit; cursor: pointer; }
   backface-visibility: hidden;
   animation: logo-fade-in 3s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s forwards;
 }
-.hero-site-logo {
-  width: 44px;
-  height: auto;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
-  transition: transform 0.3s ease;
-  cursor: pointer;
-}
-.hero-site-logo:hover {
-  transform: scale(1.08);
-}
 @media (max-width: 768px) {
   .hero-banner {
     height: 45vw;
@@ -135,12 +125,6 @@ button { font-family: inherit; cursor: pointer; }
     transform: translate(-50%, -50%) translateZ(0);
     width: 85%;
     max-width: none;
-  }
-  .hero-site-logo {
-    width: 34px;
-  }
-  .hero-nav-logo-link {
-    left: 12px;
   }
 }
 
@@ -1704,15 +1688,8 @@ button { font-family: inherit; cursor: pointer; }
   align-items: center;
   justify-content: center;
   gap: 36px;
-  padding: 10px 24px;
+  padding: 14px 0;
   background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 70%, transparent 100%);
-}
-.hero-nav-logo-link {
-  position: absolute;
-  left: 24px;
-  top: 50%;
-  transform: translateY(-50%);
-  line-height: 0;
 }
 .hero-nav-link {
   color: rgba(255,255,255,0.75);
@@ -1761,7 +1738,6 @@ button { font-family: inherit; cursor: pointer; }
     </video>
     <!-- Nav overlay on video -->
     <nav class="hero-nav">
-      <a href="/" class="hero-nav-logo-link"><img src="背景透明みかん.png" alt="ほやけんいってこーわい" class="hero-site-logo"></a>
       <a href="/" class="hero-nav-link active">イベント</a>
       <span class="hero-nav-sep">|</span>
       <a href="/lessons.html" class="hero-nav-link">習い事</a>
