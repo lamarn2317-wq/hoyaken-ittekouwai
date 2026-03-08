@@ -65,17 +65,10 @@ button { font-family: inherit; cursor: pointer; }
 }
 .hero-nav-link.active {
   color: #fff;
-}
-.hero-nav-link.active::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  right: 0;
-  height: 2.5px;
-  background: #F37021;
-  border-radius: 2px;
-  box-shadow: 0 0 10px rgba(243,112,33,0.5);
+  text-decoration: underline;
+  text-decoration-color: #F37021;
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 6px;
 }
 .hero-nav-sep {
   color: rgba(255,255,255,0.4);
