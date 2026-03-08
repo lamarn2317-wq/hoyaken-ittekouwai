@@ -35,7 +35,204 @@ button { font-family: inherit; cursor: pointer; }
 :focus-visible { outline: 2px solid #F37021; outline-offset: 2px; border-radius: 4px; }
 
 /* ============================================================
-   HERO NAV — Overlay on hero
+   HERO — Banner + Unified Orange Strip (same as index.html)
+   ============================================================ */
+.hero {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  background: #fafafa;
+}
+
+/* Banner image */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 320px;
+  max-height: 700px;
+  line-height: 0;
+  animation: hero-fade-in 0.6s ease-out both;
+  overflow: hidden;
+}
+.hero-banner::after {
+  display: none;
+}
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@keyframes logo-fade-in {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.88) translateZ(0); }
+  60%  { opacity: 0.85; transform: translate(-50%, -50%) scale(0.98) translateZ(0); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) translateZ(0); }
+}
+.hero-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(0);
+  width: 80%;
+  max-width: 750px;
+  height: auto;
+  z-index: 2;
+  filter: drop-shadow(0 3px 16px rgba(0,0,0,0.5));
+  opacity: 0;
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  animation: logo-fade-in 3s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s forwards;
+}
+@media (max-width: 768px) {
+  .hero-banner {
+    height: 45vw;
+    min-height: 180px;
+    max-height: 280px;
+  }
+  .hero-logo {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(0);
+    width: 85%;
+    max-width: none;
+  }
+}
+
+/* ---- Unified warm orange strip (stats) ---- */
+.hero-strip {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  background: linear-gradient(135deg, #F37021 0%, #ff8c3a 40%, #ffa04d 100%);
+  display: flex;
+  flex-direction: column;
+  animation: hero-fade-in 0.6s ease-out 0.1s both;
+}
+
+/* Top row: stats */
+.hero-strip-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px 14px;
+  gap: 0;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 28px;
+  position: relative;
+}
+.hero-stat-num {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 4px rgba(160,50,0,0.15);
+}
+.hero-stat-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.08em;
+}
+.hero-stat + .hero-stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* Partner CTA (inside slider section) */
+.partner-cta-wrap {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 32px 0;
+}
+.partner-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(212,160,0,0.2);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.partner-cta:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(212,160,0,0.4);
+  box-shadow: 0 4px 24px rgba(212,160,0,0.12);
+  transform: translateY(-2px);
+}
+.partner-cta-badge {
+  background: linear-gradient(135deg, #FFD700, #FFC107);
+  color: #1a1208;
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  animation: badge-glow 2.5s ease-in-out infinite;
+}
+@keyframes badge-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0.3); }
+  50% { box-shadow: 0 0 0 5px rgba(255,215,0,0); }
+}
+.partner-cta-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.75);
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+.partner-cta:hover .partner-cta-text {
+  color: rgba(255,255,255,0.95);
+}
+.partner-cta-arrow {
+  font-size: 1rem;
+  color: rgba(212,160,0,0.6);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.partner-cta:hover .partner-cta-arrow {
+  transform: translateX(4px);
+  color: rgba(255,215,0,0.9);
+}
+
+@keyframes hero-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .hero-strip-stats { padding: 14px 12px 12px; }
+  .hero-stat { padding: 0 16px; }
+  .hero-stat-num { font-size: 1.2rem; }
+  .partner-cta-wrap { padding: 20px 16px 0; justify-content: center; }
+  .partner-cta { padding: 10px 18px; gap: 10px; }
+  .partner-cta-text { font-size: 0.75rem; }
+  .partner-cta-badge { font-size: 0.55rem; padding: 3px 8px; }
+}
+
+/* ============================================================
+   HERO NAV — Overlay on video
    ============================================================ */
 .hero-nav {
   position: absolute;
@@ -48,6 +245,7 @@ button { font-family: inherit; cursor: pointer; }
   justify-content: center;
   gap: 36px;
   padding: 14px 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 70%, transparent 100%);
 }
 .hero-nav-link {
   color: rgba(255,255,255,0.75);
@@ -55,7 +253,7 @@ button { font-family: inherit; cursor: pointer; }
   font-weight: 800;
   text-decoration: none;
   letter-spacing: 0.1em;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
   transition: color 0.25s ease;
   padding: 4px 4px 6px;
   position: relative;
@@ -75,7 +273,7 @@ button { font-family: inherit; cursor: pointer; }
   font-size: 1rem;
   font-weight: 300;
   user-select: none;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 
 @media (max-width: 768px) {
@@ -84,78 +282,400 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* ============================================================
-   LESSONS HERO
+   SPONSOR SLIDER — FUTURISTIC ORANGE GLASS (same as index.html)
    ============================================================ */
-.lessons-hero {
-  background: linear-gradient(135deg, #F37021 0%, #ff8c3a 40%, #ffa04d 100%);
-  padding: 48px 24px 36px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+
+/* --- Animated background blobs --- */
+@keyframes blob-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(80px, -40px) scale(1.15); }
+  66%      { transform: translate(-40px, 30px) scale(0.9); }
 }
-.lessons-hero::before {
+@keyframes blob-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(-60px, 50px) scale(1.1); }
+  66%      { transform: translate(50px, -20px) scale(0.85); }
+}
+@keyframes blob-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(0.95); }
+  50%      { transform: translate(30px, -60px) scale(1.2); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.8; }
+}
+@keyframes grid-scroll {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+.slider-section {
+  position: relative;
+  padding: 64px 0 56px;
+  overflow: hidden;
+  background: linear-gradient(165deg, #080c08 0%, #0d1a0d 20%, #1a1208 45%, #0f1a0c 65%, #0a0e0a 100%);
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent 5%, rgba(212,160,0,0.3) 30%, rgba(255,215,0,0.5) 50%, rgba(212,160,0,0.3) 70%, transparent 95%) 1;
+}
+
+/* Forest + gold ambient glow */
+.slider-section::before {
   content: "";
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.12) 0%, transparent 50%),
-              radial-gradient(circle at 80% 60%, rgba(255,255,255,0.08) 0%, transparent 40%);
+  inset: -100px;
+  background:
+    radial-gradient(ellipse 700px 500px at 10% 30%, rgba(34,85,34,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 400px at 90% 70%, rgba(20,80,40,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 50% 20%, rgba(212,160,0,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 400px 300px at 75% 50%, rgba(34,100,34,0.06) 0%, transparent 60%);
+  z-index: 0;
   pointer-events: none;
 }
-.lessons-hero h1 {
-  color: #fff;
-  font-size: clamp(1.6rem, 5vw, 2.4rem);
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  text-shadow: 0 2px 12px rgba(160,50,0,0.2);
-  margin-bottom: 8px;
-  position: relative;
+.slider-section::after {
+  content: "";
+  position: absolute;
+  inset: -60px;
+  background:
+    radial-gradient(ellipse 400px 250px at 30% 80%, rgba(40,90,30,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 350px 200px at 70% 30%, rgba(255,193,7,0.04) 0%, transparent 65%);
+  z-index: 0;
+  pointer-events: none;
 }
-.lessons-hero-sub {
-  color: rgba(255,255,255,0.88);
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 24px;
-  position: relative;
+
+/* Shimmer animation */
+@keyframes bg-shimmer {
+  0%   { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 60px 60px, -40px 40px, 30px -30px; }
 }
-.lessons-hero-stats {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  position: relative;
+.slider-section .slider-bg-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.2;
+  background-image:
+    radial-gradient(circle, rgba(212,160,0,0.15) 0.5px, transparent 0.5px),
+    radial-gradient(circle, rgba(34,85,34,0.18) 0.5px, transparent 0.5px),
+    radial-gradient(circle, rgba(255,215,0,0.08) 0.5px, transparent 0.5px);
+  background-size: 32px 32px, 40px 40px, 56px 56px;
+  background-position: 0 0, 20px 10px, 8px 28px;
+  animation: bg-shimmer 10s linear infinite;
+  pointer-events: none;
 }
-.hero-stat {
+
+/* Gold floating particles */
+.gold-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+@keyframes particle-float {
+  0%   { transform: translateY(100%) scale(0); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+}
+.gp {
+  position: absolute;
+  bottom: -10px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  animation: particle-float linear infinite;
+}
+/* Gold particles */
+.gp.gold {
+  background: radial-gradient(circle, rgba(255,215,0,0.8), rgba(212,160,0,0.3));
+  box-shadow: 0 0 6px rgba(255,215,0,0.3);
+}
+/* Green firefly particles */
+.gp.green {
+  background: radial-gradient(circle, rgba(100,200,80,0.7), rgba(34,120,34,0.2));
+  box-shadow: 0 0 8px rgba(80,180,60,0.3);
+}
+.gp1 { left: 8%;  animation-duration: 7s;  animation-delay: 0s;   width: 2px; height: 2px; }
+.gp2 { left: 22%; animation-duration: 9s;  animation-delay: 1.5s; width: 3px; height: 3px; }
+.gp3 { left: 38%; animation-duration: 6s;  animation-delay: 3s;   width: 2px; height: 2px; }
+.gp4 { left: 52%; animation-duration: 8s;  animation-delay: 0.5s; width: 4px; height: 4px; }
+.gp5 { left: 65%; animation-duration: 10s; animation-delay: 2s;   width: 2px; height: 2px; }
+.gp6 { left: 78%; animation-duration: 7s;  animation-delay: 4s;   width: 3px; height: 3px; }
+.gp7 { left: 88%; animation-duration: 8s;  animation-delay: 1s;   width: 2px; height: 2px; }
+.gp8 { left: 45%; animation-duration: 11s; animation-delay: 5s;   width: 3px; height: 3px; }
+.gp9 { left: 15%; animation-duration: 9s;  animation-delay: 2.5s; width: 3px; height: 3px; }
+.gp10{ left: 60%; animation-duration: 8s;  animation-delay: 3.5s; width: 2px; height: 2px; }
+.gp11{ left: 82%; animation-duration: 10s; animation-delay: 0.8s; width: 3px; height: 3px; }
+
+/* Section title — luxury gold */
+.slider-title {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 28px;
-  border-right: 1px solid rgba(255,255,255,0.25);
+  gap: 12px;
 }
-.hero-stat:last-child { border-right: none; }
-.hero-stat-num {
-  font-size: 1.6rem;
+/* Decorative gold line above */
+.slider-title::before {
+  content: "";
+  width: 50px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #D4A000, #FFD700, #D4A000, transparent);
+  border-radius: 2px;
+}
+@keyframes title-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.slider-title h2 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
   font-weight: 900;
-  color: #fff;
-  line-height: 1.2;
-}
-.hero-stat-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.75);
   letter-spacing: 0.08em;
+  background: linear-gradient(105deg, #B8860B 0%, #D4A000 20%, #FFD700 35%, #FFF5CC 50%, #FFD700 65%, #D4A000 80%, #B8860B 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  animation: title-shimmer 4s ease-in-out infinite;
+}
+.slider-title p {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(212,160,0,0.5);
+}
+/* Decorative gold line below */
+.slider-title::after {
+  content: "";
+  width: 50px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #D4A000, #FFD700, #D4A000, transparent);
+  border-radius: 2px;
+}
+
+/* Edge fade-out (dark) */
+.slider-fade-left,
+.slider-fade-right {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 100px;
+  z-index: 4;
+  pointer-events: none;
+}
+.slider-fade-left  { left: 0;  background: linear-gradient(to right, #080c08, transparent); }
+.slider-fade-right { right: 0; background: linear-gradient(to left, #0a0e0a, transparent); }
+
+/* Track */
+@keyframes scroll-infinite {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+.sponsor-track {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  width: max-content;
+  gap: 20px;
+  animation: scroll-infinite 30s linear infinite;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.slider-section:hover .sponsor-track,
+.slider-section.is-paused .sponsor-track {
+  animation-play-state: paused;
+}
+
+/* --- Glassmorphism cards on dark bg --- */
+.sponsor-card {
+  flex: 0 0 220px;
+  height: 180px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+/* Hover shimmer sweep */
+.sponsor-card .card-shimmer {
+  position: absolute;
+  top: 0; left: -100%; right: 0; bottom: 0;
+  width: 50%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.06) 45%, rgba(255,215,0,0.08) 50%, rgba(255,255,255,0.06) 55%, transparent 80%);
+  transition: none;
+  pointer-events: none;
+  z-index: 10;
+}
+.sponsor-card:hover .card-shimmer {
+  animation: card-shimmer-sweep 0.8s ease forwards;
+}
+@keyframes card-shimmer-sweep {
+  0%   { left: -100%; }
+  100% { left: 150%; }
+}
+
+/* Top accent bar per rank */
+.sponsor-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  border-radius: 0 0 4px 4px;
+  transition: left 0.4s ease, right 0.4s ease, opacity 0.4s ease;
+}
+.sponsor-card.gold::before   { background: linear-gradient(90deg, #FFD700, #FFC107, #FFD700); }
+.sponsor-card.silver::before { background: linear-gradient(90deg, #C0C0C0, #E8E8E8, #C0C0C0); }
+.sponsor-card.bronze::before { background: linear-gradient(90deg, #DBA058, #E8C090, #CD7F32); }
+.sponsor-card.orange::before { background: linear-gradient(90deg, #F37021, #ff9f43, #F37021); }
+
+/* Bottom glow per rank */
+.sponsor-card::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 30%;
+  right: 30%;
+  height: 1px;
+  border-radius: 4px 4px 0 0;
+  opacity: 0;
+  transition: opacity 0.4s ease, left 0.4s ease, right 0.4s ease;
+}
+.sponsor-card.gold::after   { background: linear-gradient(90deg, transparent, rgba(255,215,0,0.4), transparent); }
+.sponsor-card.silver::after { background: linear-gradient(90deg, transparent, rgba(200,200,200,0.3), transparent); }
+.sponsor-card.bronze::after { background: linear-gradient(90deg, transparent, rgba(205,127,50,0.3), transparent); }
+.sponsor-card.orange::after { background: linear-gradient(90deg, transparent, rgba(243,112,33,0.3), transparent); }
+
+.sponsor-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  background: rgba(255,255,255,0.07);
+}
+.sponsor-card:hover::before {
+  left: 5%;
+  right: 5%;
+}
+.sponsor-card:hover::after {
+  opacity: 1;
+  left: 15%;
+  right: 15%;
+}
+
+/* Rank glow on hover */
+.sponsor-card.gold:hover   { border-color: rgba(255,215,0,0.25); box-shadow: 0 8px 40px rgba(212,160,0,0.15), 0 0 60px rgba(255,215,0,0.06), inset 0 1px 0 rgba(255,215,0,0.1); }
+.sponsor-card.silver:hover { border-color: rgba(200,200,200,0.25); box-shadow: 0 8px 40px rgba(200,200,200,0.1), 0 0 60px rgba(200,200,200,0.04), inset 0 1px 0 rgba(255,255,255,0.1); }
+.sponsor-card.bronze:hover { border-color: rgba(205,127,50,0.25); box-shadow: 0 8px 40px rgba(205,127,50,0.12), 0 0 60px rgba(205,127,50,0.05), inset 0 1px 0 rgba(205,127,50,0.1); }
+.sponsor-card.orange:hover { border-color: rgba(243,112,33,0.25); box-shadow: 0 8px 40px rgba(243,112,33,0.12), 0 0 60px rgba(243,112,33,0.05), inset 0 1px 0 rgba(243,112,33,0.1); }
+
+/* --- Text --- */
+.sponsor-card .rank-label {
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  transition: color 0.3s ease;
+}
+.sponsor-card:hover .rank-label { color: rgba(255,255,255,0.55); }
+
+.sponsor-card .main-label {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  transition: filter 0.3s ease;
+}
+.sponsor-card:hover .main-label { filter: brightness(1.2); }
+
+.sponsor-card.gold .main-label   { background: linear-gradient(135deg, #FFD700, #FFC107, #FFE066); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sponsor-card.silver .main-label { background: linear-gradient(135deg, #C0C0C0, #E0E0E0, #A8A8A8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sponsor-card.bronze .main-label { background: linear-gradient(135deg, #DBA058, #E8C090, #CD7F32); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sponsor-card.orange .main-label { background: linear-gradient(135deg, #F37021, #ff9f43, #F37021); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+.sponsor-card .limit-label {
+  font-size: 0.5rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.2);
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+.sponsor-card:hover .limit-label { color: rgba(255,255,255,0.4); }
+
+/* Rank icon */
+@keyframes icon-pulse-gold {
+  0%, 100% { filter: grayscale(0.15) drop-shadow(0 0 3px rgba(255,215,0,0.15)); }
+  50%      { filter: grayscale(0) drop-shadow(0 0 10px rgba(255,215,0,0.35)); }
+}
+@keyframes icon-pulse-silver {
+  0%, 100% { filter: grayscale(0.2) drop-shadow(0 0 2px rgba(200,200,200,0.1)); }
+  50%      { filter: grayscale(0) drop-shadow(0 0 8px rgba(200,200,200,0.25)); }
+}
+@keyframes icon-pulse-bronze {
+  0%, 100% { filter: grayscale(0.2) drop-shadow(0 0 2px rgba(205,127,50,0.1)); }
+  50%      { filter: grayscale(0) drop-shadow(0 0 8px rgba(205,127,50,0.25)); }
+}
+@keyframes icon-pulse-orange {
+  0%, 100% { filter: grayscale(0.2) drop-shadow(0 0 2px rgba(243,112,33,0.1)); }
+  50%      { filter: grayscale(0) drop-shadow(0 0 8px rgba(243,112,33,0.25)); }
+}
+.sponsor-card .rank-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+.sponsor-card.gold .rank-icon   { animation: icon-pulse-gold 3s ease-in-out infinite; }
+.sponsor-card.silver .rank-icon { animation: icon-pulse-silver 3.5s ease-in-out infinite; }
+.sponsor-card.bronze .rank-icon { animation: icon-pulse-bronze 3.5s ease-in-out infinite; }
+.sponsor-card.orange .rank-icon { animation: icon-pulse-orange 4s ease-in-out infinite; }
+.sponsor-card:hover .rank-icon {
+  transform: scale(1.2);
+}
+
+/* --- Mobile --- */
+@media (max-width: 768px) {
+  .slider-section {
+    padding: 40px 0 36px;
+  }
+  .slider-fade-left, .slider-fade-right { width: 40px; }
+  .slider-fade-left  { background: linear-gradient(to right, #080c08, transparent); }
+  .slider-fade-right { background: linear-gradient(to left, #0a0e0a, transparent); }
+  .sponsor-card {
+    flex: 0 0 60vw;
+    max-width: 220px;
+    height: 155px;
+    border-radius: 18px;
+  }
+  .slider-title { margin-bottom: 28px; }
+  .slider-title h2 { font-size: 1.3rem; }
+  .slider-title p { font-size: 0.55rem; letter-spacing: 0.2em; }
 }
 
 /* ============================================================
-   CONTAINER
+   LAYOUT
    ============================================================ */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px 40px;
 }
+
+/* Old sponsor-banner hidden */
+.sponsor-banner { display: none !important; }
 
 /* ============================================================
    SEARCH & FILTER
@@ -645,11 +1165,15 @@ button { font-family: inherit; cursor: pointer; }
 .reveal-d3 { transition-delay: 0.24s; }
 .reveal-d4 { transition-delay: 0.32s; }
 
+/* Hero parallax logo */
+.hero-logo {
+  transition: transform 0.1s linear;
+}
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 768px) {
-  .lessons-hero { padding: 36px 16px 28px; }
   .hero-stat { padding: 0 18px; }
   .hero-stat-num { font-size: 1.3rem; }
 
@@ -693,7 +1217,6 @@ button { font-family: inherit; cursor: pointer; }
 
 @media (max-width: 480px) {
   .container { padding: 0 12px 32px; }
-  .lessons-hero h1 { font-size: 1.4rem; }
   .hero-stat { padding: 0 14px; }
 }
 
@@ -705,32 +1228,83 @@ button { font-family: inherit; cursor: pointer; }
 <body>
 
 <!-- ============================================================
-   LESSONS HERO
+   HERO (same as index.html)
    ============================================================ -->
-<header class="lessons-hero">
-  <!-- Nav overlay on hero -->
-  <nav class="hero-nav">
-    <a href="/" class="hero-nav-link">イベント</a>
-    <span class="hero-nav-sep">|</span>
-    <a href="/lessons.html" class="hero-nav-link active">習い事</a>
-  </nav>
-  <h1>東予の習い事</h1>
-  <p class="lessons-hero-sub">スポーツ・音楽・学習塾・アートなど、東予地域の習い事情報</p>
-  <div class="lessons-hero-stats">
-    <div class="hero-stat">
-      <span class="hero-stat-num" id="statLessons">0</span>
-      <span class="hero-stat-label">教室</span>
-    </div>
-    <div class="hero-stat">
-      <span class="hero-stat-num" id="statAreas">0</span>
-      <span class="hero-stat-label">エリア</span>
-    </div>
-    <div class="hero-stat">
-      <span class="hero-stat-num" id="statCategories">0</span>
-      <span class="hero-stat-label">カテゴリ</span>
+<header class="hero">
+  <div class="hero-banner">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="/hero-bg.mp4" type="video/mp4">
+    </video>
+    <!-- Nav overlay on video -->
+    <nav class="hero-nav">
+      <a href="/" class="hero-nav-link">イベント</a>
+      <span class="hero-nav-sep">|</span>
+      <a href="/lessons.html" class="hero-nav-link active">習い事</a>
+    </nav>
+    <img src="23.png" alt="ほやけんいってこーわい — 東予のイベント情報" class="hero-logo">
+  </div>
+  <!-- Unified warm orange strip: stats -->
+  <div class="hero-strip">
+    <div class="hero-strip-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="statLessons">0</span>
+        <span class="hero-stat-label">教室</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="statAreas">0</span>
+        <span class="hero-stat-label">エリア</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="statCategories">0</span>
+        <span class="hero-stat-label">カテゴリ</span>
+      </div>
     </div>
   </div>
 </header>
+
+<!-- ============================================================
+   SPONSOR SLIDER (same as index.html)
+   ============================================================ -->
+<section class="slider-section" id="sponsorSlider">
+  <div class="slider-bg-grid"></div>
+  <div class="gold-particles" aria-hidden="true">
+    <span class="gp gold gp1"></span><span class="gp green gp2"></span><span class="gp gold gp3"></span>
+    <span class="gp green gp4"></span><span class="gp gold gp5"></span><span class="gp green gp6"></span>
+    <span class="gp gold gp7"></span><span class="gp green gp8"></span><span class="gp green gp9"></span>
+    <span class="gp gold gp10"></span><span class="gp green gp11"></span>
+  </div>
+  <div class="slider-fade-left"></div>
+  <div class="slider-fade-right"></div>
+
+  <!-- Section title -->
+  <div class="slider-title">
+    <h2>年間パートナー</h2>
+    <p>Annual Partnership &mdash; Limited Slots</p>
+  </div>
+
+  <div class="sponsor-track">
+    <div class="sponsor-card gold"><span class="card-shimmer"></span><span class="rank-icon">&#x1F451;</span><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card silver"><span class="card-shimmer"></span><span class="rank-icon">🥈</span><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card bronze"><span class="card-shimmer"></span><span class="rank-icon">🥉</span><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card orange"><span class="card-shimmer"></span><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card orange"><span class="card-shimmer"></span><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <!-- duplicate for infinite loop -->
+    <div class="sponsor-card gold"><span class="card-shimmer"></span><span class="rank-icon">&#x1F451;</span><span class="rank-label">Gold Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card silver"><span class="card-shimmer"></span><span class="rank-icon">🥈</span><span class="rank-label">Silver Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card bronze"><span class="card-shimmer"></span><span class="rank-icon">🥉</span><span class="rank-label">Bronze Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 1</span></div>
+    <div class="sponsor-card orange"><span class="card-shimmer"></span><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+    <div class="sponsor-card orange"><span class="card-shimmer"></span><span class="rank-icon">🍊</span><span class="rank-label">Orange Sponsor</span><span class="main-label">募集中</span><span class="limit-label">Limited 2</span></div>
+  </div>
+
+  <!-- Partner CTA -->
+  <div class="partner-cta-wrap">
+    <a href="sponsor-form.html" class="partner-cta">
+      <span class="partner-cta-badge">限定5社</span>
+      <span class="partner-cta-text">年間パートナー募集中</span>
+      <span class="partner-cta-arrow">&rarr;</span>
+    </a>
+  </div>
+</section>
 
 <!-- ============================================================
    MAIN CONTENT
@@ -933,7 +1507,7 @@ button { font-family: inherit; cursor: pointer; }
     animateCountUp(document.getElementById("statCategories"), cats.size, "", 1200);
   }
 
-  // Run on load
+  // Run on load — observe the hero-strip-stats
   var statsObserver = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
@@ -942,7 +1516,7 @@ button { font-family: inherit; cursor: pointer; }
       }
     });
   }, { threshold: 0.3 });
-  var heroEl = document.querySelector(".lessons-hero-stats");
+  var heroEl = document.querySelector(".hero-strip-stats");
   if (heroEl) statsObserver.observe(heroEl);
 
   /* ==========================================================
@@ -1061,6 +1635,20 @@ button { font-family: inherit; cursor: pointer; }
         e.target.style.transform = "";
       }
     }, true);
+  })();
+
+  /* ==========================================================
+     SPONSOR SLIDER — Pause on touch (mobile)
+     ========================================================== */
+  (function initSliderPause() {
+    var slider = document.getElementById("sponsorSlider");
+    if (!slider) return;
+    slider.addEventListener("touchstart", function () {
+      slider.classList.add("is-paused");
+    }, { passive: true });
+    slider.addEventListener("touchend", function () {
+      setTimeout(function () { slider.classList.remove("is-paused"); }, 2000);
+    }, { passive: true });
   })();
 
   /* ==========================================================
