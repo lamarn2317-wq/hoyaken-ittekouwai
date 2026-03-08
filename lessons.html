@@ -35,53 +35,59 @@ button { font-family: inherit; cursor: pointer; }
 :focus-visible { outline: 2px solid #F37021; outline-offset: 2px; border-radius: 4px; }
 
 /* ============================================================
-   SITE NAVIGATION BAR
+   HERO NAV — Overlay on hero
    ============================================================ */
-.site-nav {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-.site-nav-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: stretch;
-  position: relative;
-  padding: 0 40px;
-}
-.site-nav-link {
-  flex: 1;
+.hero-nav {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 14px 0;
+  gap: 28px;
+}
+.hero-nav-link {
+  color: rgba(255,255,255,0.7);
   font-size: 0.88rem;
-  font-weight: 600;
-  color: #9ca3af;
+  font-weight: 700;
   text-decoration: none;
-  transition: color 0.25s ease;
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+  transition: color 0.25s ease, transform 0.2s ease;
+  padding: 6px 2px;
   position: relative;
 }
-.site-nav-link:hover { color: #F37021; }
-.site-nav-link.active { color: #F37021; font-weight: 800; }
-.site-nav-link.active::after {
+.hero-nav-link:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+.hero-nav-link.active {
+  color: #fff;
+  font-weight: 900;
+}
+.hero-nav-link.active::after {
   content: "";
   position: absolute;
   bottom: 0;
-  left: 20%;
-  right: 20%;
-  height: 3px;
-  background: linear-gradient(90deg, #F37021, #ff8c3a);
-  border-radius: 3px 3px 0 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(255,255,255,0.4);
 }
-.site-nav-icon { font-size: 1rem; }
-.site-nav-label { letter-spacing: 0.04em; }
+.hero-nav-sep {
+  color: rgba(255,255,255,0.35);
+  font-size: 0.8rem;
+  font-weight: 300;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .hero-nav { top: 10px; gap: 20px; }
+  .hero-nav-link { font-size: 0.8rem; }
+}
 
 /* ============================================================
    LESSONS HERO
@@ -162,7 +168,7 @@ button { font-family: inherit; cursor: pointer; }
    ============================================================ */
 .search-filter-bar {
   position: sticky;
-  top: 49px;
+  top: 0;
   z-index: 100;
   background: rgba(250,250,250,0.92);
   backdrop-filter: blur(12px);
@@ -649,9 +655,6 @@ button { font-family: inherit; cursor: pointer; }
    RESPONSIVE
    ============================================================ */
 @media (max-width: 768px) {
-  .site-nav-inner { padding: 0 16px; }
-  .site-nav-link { padding: 12px 0; font-size: 0.82rem; }
-
   .lessons-hero { padding: 36px 16px 28px; }
   .hero-stat { padding: 0 18px; }
   .hero-stat-num { font-size: 1.3rem; }
@@ -708,25 +711,15 @@ button { font-family: inherit; cursor: pointer; }
 <body>
 
 <!-- ============================================================
-   SITE NAVIGATION
-   ============================================================ -->
-<nav class="site-nav" id="siteNav">
-  <div class="site-nav-inner">
-    <a href="/" class="site-nav-link" data-page="events">
-      <span class="site-nav-icon">📅</span>
-      <span class="site-nav-label">イベント</span>
-    </a>
-    <a href="/lessons.html" class="site-nav-link active" data-page="lessons">
-      <span class="site-nav-icon">🎓</span>
-      <span class="site-nav-label">習い事</span>
-    </a>
-  </div>
-</nav>
-
-<!-- ============================================================
    LESSONS HERO
    ============================================================ -->
 <header class="lessons-hero">
+  <!-- Nav overlay on hero -->
+  <nav class="hero-nav">
+    <a href="/" class="hero-nav-link">イベント</a>
+    <span class="hero-nav-sep">|</span>
+    <a href="/lessons.html" class="hero-nav-link active">習い事</a>
+  </nav>
   <h1>東予の習い事</h1>
   <p class="lessons-hero-sub">スポーツ・音楽・学習塾・アートなど、東予地域の習い事情報</p>
   <div class="lessons-hero-stats">
