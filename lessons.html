@@ -39,32 +39,32 @@ button { font-family: inherit; cursor: pointer; }
    ============================================================ */
 .hero-nav {
   position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
   display: flex;
   align-items: center;
-  gap: 28px;
+  justify-content: center;
+  gap: 36px;
+  padding: 14px 0;
 }
 .hero-nav-link {
-  color: rgba(255,255,255,0.7);
-  font-size: 0.88rem;
-  font-weight: 700;
+  color: rgba(255,255,255,0.75);
+  font-size: 1.05rem;
+  font-weight: 800;
   text-decoration: none;
-  letter-spacing: 0.06em;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.3);
-  transition: color 0.25s ease, transform 0.2s ease;
-  padding: 6px 2px;
+  letter-spacing: 0.1em;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+  transition: color 0.25s ease;
+  padding: 4px 4px 6px;
   position: relative;
 }
 .hero-nav-link:hover {
   color: #fff;
-  transform: translateY(-1px);
 }
 .hero-nav-link.active {
   color: #fff;
-  font-weight: 900;
 }
 .hero-nav-link.active::after {
   content: "";
@@ -72,21 +72,22 @@ button { font-family: inherit; cursor: pointer; }
   bottom: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 2.5px;
   background: #fff;
   border-radius: 2px;
-  box-shadow: 0 0 8px rgba(255,255,255,0.4);
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
 .hero-nav-sep {
-  color: rgba(255,255,255,0.35);
-  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+  font-size: 1rem;
   font-weight: 300;
   user-select: none;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
 @media (max-width: 768px) {
-  .hero-nav { top: 10px; gap: 20px; }
-  .hero-nav-link { font-size: 0.8rem; }
+  .hero-nav { gap: 24px; padding: 10px 0; }
+  .hero-nav-link { font-size: 0.9rem; }
 }
 
 /* ============================================================
