@@ -1181,21 +1181,6 @@ button { font-family: inherit; cursor: pointer; }
   color: rgba(255,255,255,0.25);
   letter-spacing: 0.03em;
 }
-.footer-tanuki {
-  width: 60px;
-  height: 60px;
-  position: absolute;
-  bottom: 20px;
-  right: 40px;
-  opacity: 0.15;
-  animation: footer-tanuki-sway 4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-@keyframes footer-tanuki-sway {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
-}
 @media (max-width: 768px) {
   .footer-inner { padding: 40px 20px 24px; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
@@ -1206,7 +1191,6 @@ button { font-family: inherit; cursor: pointer; }
   .footer-nav-list { align-items: center; }
   .footer-nav-list a:hover { padding-left: 0; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-  .footer-tanuki { right: 16px; bottom: 12px; width: 48px; height: 48px; }
 }
 @media (max-width: 480px) {
   .footer-inner { padding: 32px 16px 20px; }
@@ -1703,9 +1687,6 @@ button { font-family: inherit; cursor: pointer; }
     <span class="fp gold" style="left:80%;width:3px;height:3px;animation-duration:11s;animation-delay:2s;"></span>
     <span class="fp green" style="left:92%;width:2px;height:2px;animation-duration:8s;animation-delay:4s;"></span>
   </div>
-
-  <!-- Tanuki watermark -->
-  <img src="taokki.png" alt="" class="footer-tanuki" loading="lazy">
 
   <div class="footer-inner">
     <div class="footer-grid">
